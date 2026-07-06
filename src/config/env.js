@@ -28,5 +28,6 @@ export default {
   refresh: {
     secret: process.env.REFRESH_SECRET,
     expiresIn: process.env.REFRESH_EXPIRES_IN,
+    expiresDays: Number(process.env.REFRESH_EXPIRES_DAYS),
   },
 };
