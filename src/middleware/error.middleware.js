@@ -1,7 +1,7 @@
 import logger from "../shared/logger.js";
 
 const errorHandler = (err, req, res, next) => {
-  logger.error(err.message);
+  logger.error(err.stack); // 👈 instead of err.message
 
   res.status(err.statusCode || 500).json({
     success: false,

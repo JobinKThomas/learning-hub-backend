@@ -4,9 +4,6 @@ import Session from "../models/Session.js";
 /**
  * Find user by email
  */
-// export const findUserByEmail = (email) => {
-//   return User.findOne({ email }).select("+password");
-// };
 export const findUserByEmail = (email) => {
   return User.findOne({ email });
 };
