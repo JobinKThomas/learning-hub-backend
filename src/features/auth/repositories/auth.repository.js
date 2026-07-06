@@ -4,7 +4,17 @@ import Session from "../models/Session.js";
 /**
  * Find user by email
  */
+// export const findUserByEmail = (email) => {
+//   return User.findOne({ email }).select("+password");
+// };
 export const findUserByEmail = (email) => {
+  return User.findOne({ email });
+};
+
+/**
+ * Find user by email with password
+ */
+export const findUserByEmailWithPassword = (email) => {
   return User.findOne({ email }).select("+password");
 };
 
