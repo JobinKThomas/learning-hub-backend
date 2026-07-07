@@ -1,6 +1,6 @@
-const ROLES = {
+export const Roles = Object.freeze({
   ADMIN: "admin",
   USER: "user",
-};
+});
 
-export default ROLES;
+export default Roles;

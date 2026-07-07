@@ -1,0 +1,51 @@
+const learningPathDto = (learningPath) => {
+  if (!learningPath) return null;
+
+  const {
+    id,
+    title,
+    slug,
+    shortDescription,
+    description,
+    thumbnail,
+    banner,
+    icon,
+    difficulty,
+    visibility,
+    subscriptionType,
+    estimatedHours,
+    estimatedModules,
+    estimatedNotes,
+    totalContent,
+    tags,
+    order,
+    status,
+    createdAt,
+    updatedAt,
+  } = learningPath;
+
+  return {
+    id,
+    title,
+    slug,
+    shortDescription,
+    description,
+    thumbnail,
+    banner,
+    icon,
+    difficulty,
+    visibility,
+    subscriptionType,
+    estimatedHours,
+    estimatedModules,
+    estimatedNotes,
+    totalContent,
+    tags,
+    order,
+    status,
+    createdAt,
+    updatedAt,
+  };
+};
+
+export default learningPathDto;
