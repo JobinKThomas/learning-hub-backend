@@ -1,74 +1,23 @@
 import mongoose from "mongoose";
 
-import Difficulty from "../../shared/enums/difficulty.enum.js";
-import Visibility from "../../shared/enums/visibility.enum.js";
-import SubscriptionType from "../../shared/enums/subscription.enum.js";
-import ContentStatus from "../../shared/enums/contentStatus.enum.js";
-import createSlug from "../../shared/slug/slugify.js";
+import baseContentSchema from "../../../../shared/schemas/baseContent.schema.js";
+
+import Difficulty from "../../../../shared/enums/difficulty.enum.js";
+import Visibility from "../../../../shared/enums/visibility.enum.js";
+import SubscriptionType from "../../../../shared/enums/subscription.enum.js";
+import ContentStatus from "../../../../shared/enums/contentStatus.enum.js";
+import createSlug from "../../../../shared/utils/slug.util.js";
 
 const learningPathSchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-      minlength: 3,
-      maxlength: 100,
-    },
-
-    slug: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
-    },
-
-    shortDescription: {
-      type: String,
-      trim: true,
-      maxlength: 250,
-      default: "",
-    },
-
-    description: {
-      type: String,
-      default: "",
-    },
-
-    thumbnail: {
-      type: String,
-      default: null,
-    },
-
-    banner: {
-      type: String,
-      default: null,
-    },
-
-    icon: {
-      type: String,
-      default: null,
-    },
+    ...baseContentSchema,
 
     difficulty: {
       type: String,
       enum: Object.values(Difficulty),
       default: Difficulty.BEGINNER,
     },
-
-    visibility: {
-      type: String,
-      enum: Object.values(Visibility),
-      default: Visibility.PUBLIC,
-    },
-
-    subscriptionType: {
-      type: String,
-      enum: Object.values(SubscriptionType),
-      default: SubscriptionType.FREE,
-    },
-
+    
     estimatedHours: {
       type: Number,
       default: 0,
@@ -87,6 +36,11 @@ const learningPathSchema = new mongoose.Schema(
       min: 0,
     },
 
+    banner: {
+      type: String,
+      default: null,
+    },
+
     tags: [
         {
             type: String,
@@ -94,42 +48,7 @@ const learningPathSchema = new mongoose.Schema(
             lowercase: true,
         },
     ],
-
-    order: {
-      type: Number,
-      default: 0,
-    },
-
-    status: {
-        type: String,
-        enum: Object.values(ContentStatus),
-        default: ContentStatus.DRAFT,
-    },
-
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      default: null,
-    },
-
-    updatedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      default: null,
-    },
-
-    deletedAt: {
-      type: Date,
-      default: null,
-      select: false,
-    },
-
-    deletedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      default: null,
-      select: false,
-    },
+    
     seo: {
         metaTitle: {
             type: String,

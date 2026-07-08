@@ -1,8 +1,8 @@
 import * as learningPathRepository from "../repositories/learningPath.repository.js";
 
-import learningPathDto from "../dto/learningPath.dto.js";
+import learningPathPresenter from "../presenters/learningPath.presenter.js";
 
-import buildLearningPathQuery from "../../shared/utils/buildLearningPathQuery.js";
+import buildContentQuery from "../../../../../shared/builders/contentQuery.builder.js";
 
 const listLearningPathsService = async (filters = {}) => {
   const {
@@ -10,7 +10,7 @@ const listLearningPathsService = async (filters = {}) => {
     limit = 20,
   } = filters;
 
-  const query = buildLearningPathQuery(filters);
+  const query = buildContentQuery(filters);
 
   const learningPaths =
     await learningPathRepository.findLearningPaths(filters);
@@ -23,7 +23,7 @@ const listLearningPathsService = async (filters = {}) => {
   );
 
   return {
-    items: learningPaths.map(learningPathDto),
+    items: learningPaths.map(learningPathPresenter),
 
     meta: {
       page: Number(page),

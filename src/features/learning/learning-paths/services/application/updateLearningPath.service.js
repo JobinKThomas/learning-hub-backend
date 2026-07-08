@@ -1,6 +1,6 @@
 import ApiError from "../../../../../shared/ApiError.js";
 
-import learningPathDto from "../dto/learningPath.dto.js";
+import learningPathPresenter from "../presenters/learningPath.presenter.js";
 
 import * as learningPathRepository from "../repositories/learningPath.repository.js";
 
@@ -41,7 +41,7 @@ const updateLearningPathService = async (
       updateData
     );
 
-  return learningPathDto(updatedLearningPath);
+  return learningPathPresenter(updatedLearningPath);
 };
 
 export default updateLearningPathService;

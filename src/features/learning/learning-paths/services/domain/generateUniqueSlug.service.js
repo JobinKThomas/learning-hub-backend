@@ -1,4 +1,4 @@
-import createSlug from "../../../shared/slug/slugify.js";
+import createSlug from "../../../../../shared/utils/slug.util.js";
 
 import {
   existsBySlug,
