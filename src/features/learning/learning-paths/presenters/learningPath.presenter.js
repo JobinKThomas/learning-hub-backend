@@ -1,4 +1,4 @@
-const learningPathDto = (learningPath) => {
+const learningPathPresenter = (learningPath) => {
   if (!learningPath) return null;
 
   const {
@@ -48,4 +48,4 @@ const learningPathDto = (learningPath) => {
   };
 };
 
-export default learningPathDto;
+export default learningPathPresenter;

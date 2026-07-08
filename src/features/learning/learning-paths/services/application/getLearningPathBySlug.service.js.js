@@ -2,7 +2,8 @@ import ApiError from "../../../../../shared/ApiError.js";
 
 import * as learningPathRepository from "../repositories/learningPath.repository.js";
 
-import learningPathDto from "../dto/learningPath.dto.js";
+import learningPathPresenter from "../presenters/learningPath.presenter.js";
+
 import Errors from "../../../../../shared/constants/errors.js";
 
 const getLearningPathBySlugService = async (slug) => {
@@ -16,7 +17,7 @@ const getLearningPathBySlugService = async (slug) => {
     );
   }
 
-  return learningPathDto(learningPath);
+  return learningPathPresenter(learningPath);
 };
 
 export default getLearningPathBySlugService;
