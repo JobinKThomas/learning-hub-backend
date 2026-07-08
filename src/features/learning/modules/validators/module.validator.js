@@ -60,3 +60,15 @@ export const updateModuleValidator = [
     }),
 
 ];
+
+export const updateModuleStatusValidator = [
+
+    body("status")
+
+        .notEmpty()
+
+        .isIn(
+            Object.values(ContentStatus)
+        )
+
+];
