@@ -1,38 +1,58 @@
-import * as learningPathRepository from "../repositories/learningPath.repository.js";
+import * as learningPathRepository
+  from "../../repositories/learningPath.repository.js";
 
-import learningPathPresenter from "../presenters/learningPath.presenter.js";
+import buildContentQuery
+  from "../../../../../shared/builders/contentQuery.builder.js";
 
-import buildContentQuery from "../../../../../shared/builders/contentQuery.builder.js";
+import buildSort
+  from "../../../../../shared/builders/sort.builder.js";
 
-const listLearningPathsService = async (filters = {}) => {
-  const {
-    page = 1,
-    limit = 20,
-  } = filters;
+import buildPaginationMeta
+  from "../../../../../shared/builders/pagination.builder.js";
 
-  const query = buildContentQuery(filters);
+const listLearningPathsService =
+async (filters = {}) => {
 
-  const learningPaths =
-    await learningPathRepository.findLearningPaths(filters);
+  const page = Number(filters.page) || 1;
+
+  const limit = Number(filters.limit) || 20;
+
+  const query =
+    buildContentQuery(filters);
+
+  const sort =
+    buildSort(
+      filters.sort,
+      [
+        "order",
+        "title",
+        "createdAt",
+        "updatedAt",
+      ],
+      "order"
+    );
+
+  const items =
+    await learningPathRepository.findLearningPaths({
+      query,
+      sort,
+      page,
+      limit,
+    });
 
   const total =
-    await learningPathRepository.countLearningPaths(query);
-
-  const totalPages = Math.ceil(
-    total / Number(limit)
-  );
+    await learningPathRepository.countLearningPaths(
+      query
+    );
 
   return {
-    items: learningPaths.map(learningPathPresenter),
-
-    meta: {
-      page: Number(page),
-      limit: Number(limit),
-      total,
-      totalPages,
-      hasNext: Number(page) < totalPages,
-      hasPrevious: Number(page) > 1,
-    },
+    items,
+    meta:
+      buildPaginationMeta({
+        page,
+        limit,
+        total,
+      }),
   };
 };
 

@@ -1,4 +1,5 @@
 import ApiError from "../../../../../shared/ApiError.js";
+import Errors from "../../../../../shared/constants/errors.js";
 
 import * as learningPathRepository from "../../repositories/learningPath.repository.js";
 
@@ -9,7 +10,7 @@ const ensureLearningPathExists = async (id) => {
   if (!learningPath) {
     throw new ApiError(
       404,
-      "Learning Path not found"
+      Errors.LEARNING_PATH_NOT_FOUND
     );
   }
 
