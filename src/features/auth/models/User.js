@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-
+import Roles from "../../../shared/constants/roles.js";
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -21,9 +21,12 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
+      match: [
+        /^\S+@\S+\.\S+$/,
+        "Invalid email address.",
+      ]
     },
 
     password: {
@@ -35,7 +38,7 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["admin", "user"],
+      enum: Object.values(Roles),
       default: "user",
     },
 
@@ -63,6 +66,8 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+userSchema.index({ email: 1 }, { unique: true });
+
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) {
     return;

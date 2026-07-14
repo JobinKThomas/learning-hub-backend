@@ -1,66 +1,145 @@
+import asyncHandler from "../../../middleware/asyncHandler.middleware.js";
+
 import ApiResponse from "../../../shared/ApiResponse.js";
-import registerService from "../services/register.service.js";
-import loginService from "../services/login.service.js";
-import userDto from "../dto/user.dto.js";
+import Messages from "../../../shared/constants/messages.js";
 
+import userPresenter from "../presenters/user.presenter.js";
 
-export const register = async (req, res, next) => {
-  try {
+import registerService from "../services/application/register.service.js";
+import loginService from "../services/application/login.service.js";
+import logoutService from "../services/application/logout.service.js";
+import refreshService from "../services/application/refresh.service.js";
+import { refreshCookieOptions } from "../../../shared/utils/cookie.util.js";
+
+/**
+ * Register
+ */
+export const register = asyncHandler(
+  async (req, res) => {
     const user = await registerService(req.body);
 
     return res.status(201).json(
       new ApiResponse({
-        message: "User registered successfully",
-        data: user,
+        message: Messages.USER_REGISTERED,
+        data: userPresenter(user),
       })
     );
-  } catch (error) {
-    next(error);
   }
-};
+);
 
-export const login = async (req, res, next) => {
-  try {
-    const userAgent = req.get("User-Agent") || "";  
-    const ipAddress = req.ip || req.connection.remoteAddress || "";
+/**
+ * Login
+ */
+export const login = asyncHandler(
+  async (req, res) => {
+    const result = await loginService(
+      req.body,
+      {
+        userAgent:
+          req.get("user-agent") || "",
+        ipAddress: req.ip,
+      }
+    );
 
-    const result =
-      await loginService({
-        ...req.body,
-        userAgent,
-        ipAddress
-      });
-
-    res.cookie("refreshToken", result.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    res.cookie(
+      "refreshToken",
+      result.refreshToken,
+      refreshCookieOptions
+    );
 
     return res.json(
       new ApiResponse({
-        message: "Login successful",
+        message: Messages.LOGIN_SUCCESS,
         data: {
-          user: result.user,
-          accessToken: result.accessToken,
+          user: userPresenter(
+            result.user
+          ),
+          accessToken:
+            result.accessToken,
         },
       })
     );
-  } catch (error) {
-    next(error);
   }
-};
+);
 
-export const logout = async (req, res) => {};
+/**
+ * Refresh Token
+ */
+export const refresh = asyncHandler(
+  async (req, res) => {
+    const refreshToken =
+      req.cookies.refreshToken ||
+      req.body.refreshToken;
 
-export const refresh = async (req, res) => {};
+    const result =
+      await refreshService(
+        refreshToken,
+        {
+          userAgent:
+            req.get("user-agent") || "",
+          ipAddress: req.ip,
+        }
+      );
 
-export const me = async (req, res) => {
-  return res.json(
-    new ApiResponse({
-      message: "Current user",
-      data: userDto(req.user),
-    })
-  );
-};
+    res.cookie(
+      "refreshToken",
+      result.refreshToken,
+      refreshCookieOptions
+    );
+
+    return res.json(
+      new ApiResponse({
+        message:
+          Messages.TOKEN_REFRESHED,
+        data: {
+          user: userPresenter(
+            result.user
+          ),
+          accessToken:
+            result.accessToken,
+        },
+      })
+    );
+  }
+);
+
+/**
+ * Logout
+ */
+export const logout = asyncHandler(
+  async (req, res) => {
+    const refreshToken =
+      req.cookies.refreshToken ||
+      req.body.refreshToken;
+
+    await logoutService(
+      refreshToken
+    );
+
+    res.clearCookie(
+      "refreshToken"
+    );
+
+    return res.json(
+      new ApiResponse({
+        message:
+          Messages.LOGOUT_SUCCESS,
+      })
+    );
+  }
+);
+
+/**
+ * Current User
+ */
+export const me = asyncHandler(
+  async (req, res) => {
+    return res.json(
+      new ApiResponse({
+        data: userPresenter(
+          req.user
+        ),
+      })
+    );
+  }
+);

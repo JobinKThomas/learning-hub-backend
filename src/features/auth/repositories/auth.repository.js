@@ -2,6 +2,20 @@ import User from "../models/User.js";
 import Session from "../models/Session.js";
 
 /**
+ * Create user
+ */
+export const createUser = (data) => {
+  return User.create(data);
+};
+
+/**
+ * Find user by id
+ */
+export const findUserById = (id) => {
+  return User.findById(id);
+};
+
+/**
  * Find user by email
  */
 export const findUserByEmail = (email) => {
@@ -15,19 +29,6 @@ export const findUserByEmailWithPassword = (email) => {
   return User.findOne({ email }).select("+password");
 };
 
-/**
- * Find user by id
- */
-export const findUserById = (id) => {
-  return User.findById(id);
-};
-
-/**
- * Create user
- */
-export const createUser = (data) => {
-  return User.create(data);
-};
 
 /**
  * Update last login

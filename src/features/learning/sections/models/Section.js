@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import baseContentSchema from "../../../../shared/schemas/baseContent.schema.js";
+import createSlug from "../../../../shared/services/slugify.service.js";
 
 const sectionSchema = new mongoose.Schema(
   {

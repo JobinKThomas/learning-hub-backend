@@ -1,11 +1,11 @@
-const userDto = (user) => ({
-  id: user._id,
+const userPresenter = (user) => ({
+  id: user._id.toString(),
   firstName: user.firstName,
   lastName: user.lastName,
   email: user.email,
   role: user.role,
-  avatar: user.avatar,
+  avatar: user.avatar ?? null,
   emailVerified: user.emailVerified,
 });
 
-export default userDto;
+export default userPresenter;

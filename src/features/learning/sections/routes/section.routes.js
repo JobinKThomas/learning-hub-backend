@@ -10,10 +10,15 @@ import Roles from "../../../../shared/constants/roles.js";
 
 import {
   createSectionValidator,
+  updateSectionValidator,
+  updateSectionStatusValidator,
 } from "../validators/section.validator.js";
 
 const router = Router();
 
+/**
+ * Create Section
+ */
 router.post(
   "/",
   authMiddleware,
@@ -23,6 +28,9 @@ router.post(
   sectionController.createSection
 );
 
+/**
+ * List Sections
+ */
 router.get(
   "/",
   authMiddleware,
@@ -30,11 +38,48 @@ router.get(
   sectionController.listSections
 );
 
+/**
+ * Get Section by Slug
+ */
 router.get(
-    "/:slug",
-    authMiddleware,
-    authorize(Roles.ADMIN),
-    sectionController.getSection
+  "/:slug",
+  authMiddleware,
+  authorize(Roles.ADMIN),
+  sectionController.getSectionBySlug
+);
+
+/**
+ * Update Section
+ */
+router.patch(
+  "/:id",
+  authMiddleware,
+  authorize(Roles.ADMIN),
+  updateSectionValidator,
+  validate,
+  sectionController.updateSection
+);
+
+/**
+ * Update Section Status
+ */
+router.patch(
+  "/:id/status",
+  authMiddleware,
+  authorize(Roles.ADMIN),
+  updateSectionStatusValidator,
+  validate,
+  sectionController.updateSectionStatus
+);
+
+/**
+ * Delete Section
+ */
+router.delete(
+  "/:id",
+  authMiddleware,
+  authorize(Roles.ADMIN),
+  sectionController.deleteSection
 );
 
 export default router;
