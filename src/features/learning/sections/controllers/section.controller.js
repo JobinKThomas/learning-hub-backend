@@ -40,9 +40,13 @@ export const listSections = asyncHandler(
       req.query
     );
 
-    return res.status(200).json(
+    return res.json(
       new ApiResponse({
-        data: result,
+        message: Messages.SUCCESS,
+        data: {
+          ...result,
+          items: result.items.map(sectionPresenter),
+        },
       })
     );
   }
@@ -58,8 +62,9 @@ export const getSectionBySlug = asyncHandler(
         req.params.slug
       );
 
-    return res.status(200).json(
+    return res.json(
       new ApiResponse({
+        message: Messages.SUCCESS,
         data: sectionPresenter(section),
       })
     );
@@ -78,7 +83,7 @@ export const updateSection = asyncHandler(
         req.user.id
       );
 
-    return res.status(200).json(
+    return res.json(
       new ApiResponse({
         message: Messages.SECTION_UPDATED,
         data: sectionPresenter(section),
@@ -99,7 +104,7 @@ export const updateSectionStatus =
         req.user.id
       );
 
-    return res.status(200).json(
+    return res.json(
       new ApiResponse({
         message:
           Messages.SECTION_STATUS_UPDATED,
@@ -118,7 +123,7 @@ export const deleteSection = asyncHandler(
       req.user.id
     );
 
-    return res.status(200).json(
+    return res.json(
       new ApiResponse({
         message: Messages.SECTION_DELETED,
       })

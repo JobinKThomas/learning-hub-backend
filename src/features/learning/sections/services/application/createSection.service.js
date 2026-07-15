@@ -1,4 +1,4 @@
-import * as sectionRepository from "../repositories/section.repository.js";
+import * as sectionRepository from "../../repositories/section.repository.js";
 
 import ensureLearningPathExists from "../../../learning-paths/services/domain/ensureLearningPathExists.service.js";
 import ensureModuleExists from "../../../modules/services/domain/ensureModuleExists.service.js";
@@ -6,8 +6,8 @@ import ensureModuleExists from "../../../modules/services/domain/ensureModuleExi
 import ensureSectionExists from "../domain/ensureSectionExists.service.js";
 import validateParentSection from "../domain/validateParentSection.service.js";
 import calculateSectionLevel from "../domain/calculateSectionLevel.service.js";
-
-import generateUniqueSlug from "../../../learning-paths/services/domain/generateUniqueSlug.service.js"
+import buildSectionPath from "../domain/buildSectionPath.service.js";
+import generateUniqueSectionSlug from "../domain/generateUniqueSectionSlug.service.js";
 
 const createSectionService = async (
   payload,
@@ -29,13 +29,11 @@ const createSectionService = async (
         payload.parentSection
       );
 
-    validateParentSection({
+    validateParentSection(
       parentSection,
-      learningPathId:
-        payload.learningPath,
-      moduleId:
-        payload.module,
-    });
+      payload.learningPath,
+      payload.module
+    );
   }
 
   const level =
@@ -43,22 +41,24 @@ const createSectionService = async (
       parentSection
     );
 
+  const path =
+    buildSectionPath(
+      parentSection
+    );
+
   const slug =
-    await generateUniqueSlug({
-      repository:
-        sectionRepository,
-      title: payload.title,
-    });
+    await generateUniqueSectionSlug(
+      payload.title
+    );
 
-  const section =
-    await sectionRepository.createSection({
-      ...payload,
-      level,
-      slug,
-      createdBy: userId,
-    });
-
-  return section;
+  return sectionRepository.createSection({
+    ...payload,
+    level,
+    path,
+    slug,
+    createdBy: userId,
+    updatedBy: userId,
+  });
 };
 
 export default createSectionService;

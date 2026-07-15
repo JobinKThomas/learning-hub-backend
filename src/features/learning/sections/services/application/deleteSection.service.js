@@ -1,27 +1,23 @@
-import ApiError from "../../../../../shared/ApiError.js";
+import ensureSectionExists from "../domain/ensureSectionExists.service.js";
 
 import * as sectionRepository from "../../repositories/section.repository.js";
 
-const deleteSectionService = async ({
+const deleteSectionService = async (
   id,
-  userId,
-}) => {
+  userId
+) => {
   const section =
-    await sectionRepository.findSectionById(id);
+    await ensureSectionExists(id);
 
-  if (!section) {
-    throw new ApiError(
-      404,
-      "Section not found"
+  if (section.parentSection) {
+    await sectionRepository.decrementChildrenCount(
+      section.parentSection
     );
   }
 
-  await sectionRepository.updateSection(
+  await sectionRepository.softDeleteSection(
     id,
-    {
-      deletedAt: new Date(),
-      updatedBy: userId,
-    }
+    userId
   );
 };
 

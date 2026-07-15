@@ -1,32 +1,31 @@
 const buildSectionTree = (
   sections
 ) => {
-
   const map = new Map();
 
   const roots = [];
 
-  sections.forEach(section => {
+  sections.forEach((section) => {
+    const id =
+      section.id ??
+      section._id.toString();
 
-    map.set(
-      section._id.toString(),
-      {
-        ...section,
-        children: [],
-      }
-    );
-
+    map.set(id, {
+      ...section,
+      children: [],
+    });
   });
 
-  sections.forEach(section => {
+  sections.forEach((section) => {
+    const id =
+      section.id ??
+      section._id.toString();
+
+    const current =
+      map.get(id);
 
     if (!section.parentSection) {
-
-      roots.push(
-        map.get(
-          section._id.toString()
-        )
-      );
+      roots.push(current);
 
       return;
     }
@@ -37,21 +36,11 @@ const buildSectionTree = (
       );
 
     if (parent) {
-
-      parent.children.push(
-
-        map.get(
-          section._id.toString()
-        )
-
-      );
-
+      parent.children.push(current);
     }
-
   });
 
   return roots;
-
 };
 
 export default buildSectionTree;

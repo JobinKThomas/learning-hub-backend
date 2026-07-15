@@ -1,10 +1,11 @@
 import ApiError from "../../../../../shared/ApiError.js";
+import Errors from "../../../../../shared/constants/errors.js";
 
-const validateParentSection = ({
+const validateParentSection = (
   parentSection,
   learningPathId,
-  moduleId,
-}) => {
+  moduleId
+) => {
   if (!parentSection) {
     return;
   }
@@ -15,7 +16,7 @@ const validateParentSection = ({
   ) {
     throw new ApiError(
       400,
-      "Parent section belongs to another learning path"
+      Errors.INVALID_PARENT_SECTION
     );
   }
 
@@ -25,7 +26,7 @@ const validateParentSection = ({
   ) {
     throw new ApiError(
       400,
-      "Parent section belongs to another module"
+      Errors.INVALID_PARENT_SECTION
     );
   }
 };

@@ -1,37 +1,46 @@
 import mongoose from "mongoose";
 
 import baseContentSchema from "../../../../shared/schemas/baseContent.schema.js";
-import createSlug from "../../../../shared/services/slugify.service.js";
 
 const sectionSchema = new mongoose.Schema(
   {
     ...baseContentSchema,
 
     learningPath: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "LearningPath",
-        required: true,
-        index: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "LearningPath",
+      required: true,
+      index: true,
     },
 
     module: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Module",
-        required: true,
-        index: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Module",
+      required: true,
+      index: true,
     },
 
     parentSection: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Section",
-        default: null,
-        index: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Section",
+      default: null,
+      index: true,
     },
 
     level: {
-        type: Number,
-        default: 1,
-        min: 1,
+      type: Number,
+      default: 1,
+      min: 1,
+    },
+
+    /**
+     * Example:
+     * javascript/variables
+     */
+    path: {
+      type: String,
+      default: "",
+      index: true,
     },
 
     childrenCount: {
@@ -44,30 +53,6 @@ const sectionSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-/**
- * Generate slug
- */
-sectionSchema.pre("save", function (next) {
-  if (this.isModified("title")) {
-    this.slug = createSlug(this.title);
-  }
-
-  next();
-});
-
-/**
- * JSON Transform
- */
-sectionSchema.set("toJSON", {
-  virtuals: true,
-  versionKey: false,
-  transform(doc, ret) {
-    ret.id = ret._id;
-
-    delete ret._id;
-  },
-});
 
 /**
  * Indexes
@@ -83,9 +68,14 @@ sectionSchema.index({
   order: 1,
 });
 
-sectionSchema.index({
-  slug: 1,
-});
+sectionSchema.index(
+  {
+    slug: 1,
+  },
+  {
+    unique: true,
+  }
+);
 
 sectionSchema.index({
   title: "text",
@@ -96,12 +86,36 @@ sectionSchema.index({
   visibility: 1,
 });
 
+sectionSchema.index({
+  deletedAt: 1,
+  status: 1,
+});
+
 /**
  * Virtuals
  */
 sectionSchema.virtual("isRoot").get(function () {
-  return !this.parentSection;
+  return this.parentSection === null;
 });
 
+sectionSchema.virtual("url").get(function () {
+  return `/sections/${this.slug}`;
+});
 
-export default mongoose.model("Section", sectionSchema);
+/**
+ * JSON Transform
+ */
+sectionSchema.set("toJSON", {
+  virtuals: true,
+  versionKey: false,
+  transform(doc, ret) {
+    ret.id = ret._id.toString();
+
+    delete ret._id;
+  },
+});
+
+export default mongoose.model(
+  "Section",
+  sectionSchema
+);

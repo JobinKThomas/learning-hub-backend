@@ -1,5 +1,7 @@
 import ApiError from "../../../../../shared/ApiError.js";
 
+import Errors from "../../../../../shared/constants/errors.js";
+
 import * as sectionRepository from "../../repositories/section.repository.js";
 
 const getSectionBySlugService = async (
@@ -13,7 +15,7 @@ const getSectionBySlugService = async (
   if (!section) {
     throw new ApiError(
       404,
-      "Section not found"
+      Errors.SECTION_NOT_FOUND
     );
   }
 

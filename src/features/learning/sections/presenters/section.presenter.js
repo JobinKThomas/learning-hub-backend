@@ -1,53 +1,68 @@
 const sectionPresenter = (
   section
-) => ({
-  id: section.id,
+) => {
+  if (!section) {
+    return null;
+  }
 
-  title: section.title,
+  return {
+    id: section.id,
 
-  slug: section.slug,
+    title: section.title,
 
-  shortDescription:
-    section.shortDescription,
+    slug: section.slug,
 
-  description:
-    section.description,
+    shortDescription:
+      section.shortDescription,
 
-  learningPath:
-    section.learningPath,
+    description:
+      section.description,
 
-  module:
-    section.module,
+    learningPath:
+      section.learningPath,
 
-  parentSection:
-    section.parentSection,
+    module:
+      section.module,
 
-  level:
-    section.level,
+    parentSection:
+      section.parentSection,
 
-  childrenCount:
-    section.childrenCount,
+    level:
+      section.level,
 
-  difficulty:
-    section.difficulty,
+    path:
+      section.path,
 
-  visibility:
-    section.visibility,
+    childrenCount:
+      section.childrenCount,
 
-  subscriptionType:
-    section.subscriptionType,
+    difficulty:
+      section.difficulty,
 
-  order:
-    section.order,
+    visibility:
+      section.visibility,
 
-  status:
-    section.status,
+    subscriptionType:
+      section.subscriptionType,
 
-  createdAt:
-    section.createdAt,
+    order:
+      section.order,
 
-  updatedAt:
-    section.updatedAt,
-});
+    status:
+      section.status,
+
+    isRoot:
+      section.isRoot,
+
+    url:
+      section.url,
+
+    createdAt:
+      section.createdAt,
+
+    updatedAt:
+      section.updatedAt,
+  };
+};
 
 export default sectionPresenter;

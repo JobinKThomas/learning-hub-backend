@@ -31,7 +31,10 @@ export const createSectionValidator = [
     .withMessage("Invalid Module ID."),
 
   body("parentSection")
-    .optional({ nullable: true })
+    .optional({
+      values: "falsy",
+      nullable: true,
+    })
     .isMongoId()
     .withMessage("Invalid Parent Section ID."),
 
@@ -91,7 +94,10 @@ export const updateSectionValidator = [
     .withMessage("Invalid Module ID."),
 
   body("parentSection")
-    .optional({ nullable: true })
+    .optional({
+      values: "falsy",
+      nullable: true,
+    })
     .isMongoId()
     .withMessage("Invalid Parent Section ID."),
 

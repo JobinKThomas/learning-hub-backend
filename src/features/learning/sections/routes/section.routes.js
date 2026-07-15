@@ -17,10 +17,23 @@ import {
 const router = Router();
 
 /**
- * Create Section
+ * Public Routes
+ */
+router.get(
+  "/modules/:moduleId/sections",
+  sectionController.listSections
+);
+
+router.get(
+  "/sections/:slug",
+  sectionController.getSectionBySlug
+);
+
+/**
+ * Admin Routes
  */
 router.post(
-  "/",
+  "/modules/:moduleId/sections",
   authMiddleware,
   authorize(Roles.ADMIN),
   createSectionValidator,
@@ -28,31 +41,8 @@ router.post(
   sectionController.createSection
 );
 
-/**
- * List Sections
- */
-router.get(
-  "/",
-  authMiddleware,
-  authorize(Roles.ADMIN),
-  sectionController.listSections
-);
-
-/**
- * Get Section by Slug
- */
-router.get(
-  "/:slug",
-  authMiddleware,
-  authorize(Roles.ADMIN),
-  sectionController.getSectionBySlug
-);
-
-/**
- * Update Section
- */
-router.patch(
-  "/:id",
+router.put(
+  "/sections/:id",
   authMiddleware,
   authorize(Roles.ADMIN),
   updateSectionValidator,
@@ -60,11 +50,8 @@ router.patch(
   sectionController.updateSection
 );
 
-/**
- * Update Section Status
- */
 router.patch(
-  "/:id/status",
+  "/sections/:id/status",
   authMiddleware,
   authorize(Roles.ADMIN),
   updateSectionStatusValidator,
@@ -72,11 +59,8 @@ router.patch(
   sectionController.updateSectionStatus
 );
 
-/**
- * Delete Section
- */
 router.delete(
-  "/:id",
+  "/sections/:id",
   authMiddleware,
   authorize(Roles.ADMIN),
   sectionController.deleteSection

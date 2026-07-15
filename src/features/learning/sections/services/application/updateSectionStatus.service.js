@@ -1,34 +1,21 @@
-import ApiError from "../../../../../shared/ApiError.js";
-
-import sectionDto from "../../dto/section.dto.js";
-
 import * as sectionRepository from "../../repositories/section.repository.js";
+
+import ensureSectionExists from "../domain/ensureSectionExists.service.js";
 
 const updateSectionStatusService = async (
   sectionId,
   status,
   userId
 ) => {
-  const section =
-    await sectionRepository.findSectionById(sectionId);
+  await ensureSectionExists(sectionId);
 
-  if (!section) {
-    throw new ApiError(
-      404,
-      "Section not found"
-    );
-  }
-
-  const updatedSection =
-    await sectionRepository.updateSection(
-      sectionId,
-      {
-        status,
-        updatedBy: userId,
-      }
-    );
-
-  return sectionDto(updatedSection);
+  return sectionRepository.updateSection(
+    sectionId,
+    {
+      status,
+      updatedBy: userId,
+    }
+  );
 };
 
 export default updateSectionStatusService;

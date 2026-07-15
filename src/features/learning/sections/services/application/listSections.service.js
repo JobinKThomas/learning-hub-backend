@@ -1,35 +1,44 @@
 import * as sectionRepository from "../../repositories/section.repository.js";
-import sectionPresenter from "../../presenters/section.presenter.js";
 
-const listSectionsService = async (filters = {}) => {
-  const {
-    page = 1,
-    limit = 20,
-  } = filters;
+import buildContentQuery from "../../../../../shared/builders/contentQuery.builder.js";
+import buildSort from "../../../../../shared/builders/sort.builder.js";
+import buildPaginationMeta from "../../../../../shared/builders/pagination.builder.js";
 
-  const sections =
-    await sectionRepository.findSections(filters);
+const listSectionsService = async (
+  filters = {}
+) => {
+  const page =
+    Number(filters.page) || 1;
 
-  const total =
-    await sectionRepository.countSections({
-      learningPath: filters.learningPath,
-      module: filters.module,
-      parentSection: filters.parentSection,
-      status: filters.status,
-      visibility: filters.visibility,
+  const limit =
+    Number(filters.limit) || 20;
+
+  const query =
+    buildContentQuery(filters);
+
+  const sort =
+    buildSort(filters.sort);
+
+  const items =
+    await sectionRepository.findSections({
+      query,
+      sort,
+      page,
+      limit,
     });
 
-  return {
-    items: sections.map(sectionPresenter),
+  const total =
+    await sectionRepository.countSections(
+      query
+    );
 
-    pagination: {
-      page: Number(page),
-      limit: Number(limit),
+  return {
+    items,
+    meta: buildPaginationMeta({
+      page,
+      limit,
       total,
-      totalPages: Math.ceil(
-        total / Number(limit)
-      ),
-    },
+    }),
   };
 };
 

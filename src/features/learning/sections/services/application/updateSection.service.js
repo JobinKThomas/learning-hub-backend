@@ -6,38 +6,25 @@ import ensureModuleExists from "../../../modules/services/domain/ensureModuleExi
 import ensureSectionExists from "../domain/ensureSectionExists.service.js";
 import validateParentSection from "../domain/validateParentSection.service.js";
 import calculateSectionLevel from "../domain/calculateSectionLevel.service.js";
-
-import generateUniqueSlug from "../../../../../shared/services/generateUniqueSlug.service.js";
+import buildSectionPath from "../domain/buildSectionPath.service.js";
+import generateUniqueSectionSlug from "../domain/generateUniqueSectionSlug.service.js";
 
 const updateSectionService = async (
   id,
   payload,
   userId
 ) => {
-  // Ensure section exists
   const section =
     await ensureSectionExists(id);
 
-  // Default values
-  let learningPathId =
+  const learningPathId =
+    payload.learningPath ??
     section.learningPath;
 
-  let moduleId =
+  const moduleId =
+    payload.module ??
     section.module;
 
-  let parentSection =
-    null;
-
-  let level =
-    section.level;
-
-  const updatePayload = {
-    ...payload,
-  };
-
-  /**
-   * Learning Path Changed
-   */
   if (
     payload.learningPath &&
     payload.learningPath.toString() !==
@@ -46,14 +33,8 @@ const updateSectionService = async (
     await ensureLearningPathExists(
       payload.learningPath
     );
-
-    learningPathId =
-      payload.learningPath;
   }
 
-  /**
-   * Module Changed
-   */
   if (
     payload.module &&
     payload.module.toString() !==
@@ -62,10 +43,12 @@ const updateSectionService = async (
     await ensureModuleExists(
       payload.module
     );
-
-    moduleId =
-      payload.module;
   }
+
+  const updatePayload = {
+    ...payload,
+    updatedBy: userId,
+  };
 
   /**
    * Parent Changed
@@ -75,28 +58,45 @@ const updateSectionService = async (
     payload.parentSection?.toString() !==
       section.parentSection?.toString()
   ) {
+    let parentSection = null;
+
     if (payload.parentSection) {
       parentSection =
         await ensureSectionExists(
           payload.parentSection
         );
 
-      validateParentSection({
+      validateParentSection(
         parentSection,
         learningPathId,
-        moduleId,
-      });
-
-      level =
-        calculateSectionLevel(
-          parentSection
-        );
-    } else {
-      // Root Section
-      level = 1;
+        moduleId
+      );
     }
 
-    updatePayload.level = level;
+    updatePayload.level =
+      calculateSectionLevel(
+        parentSection
+      );
+
+    updatePayload.path =
+      buildSectionPath(
+        parentSection
+      );
+
+    /**
+     * Update parent children counts
+     */
+    if (section.parentSection) {
+      await sectionRepository.decrementChildrenCount(
+        section.parentSection
+      );
+    }
+
+    if (parentSection) {
+      await sectionRepository.incrementChildrenCount(
+        parentSection._id
+      );
+    }
   }
 
   /**
@@ -107,16 +107,11 @@ const updateSectionService = async (
     payload.title !== section.title
   ) {
     updatePayload.slug =
-      await generateUniqueSlug({
-        repository:
-          sectionRepository,
-        title: payload.title,
-        excludeId: id,
-      });
+      await generateUniqueSectionSlug(
+        payload.title,
+        id
+      );
   }
-
-  updatePayload.updatedBy =
-    userId;
 
   const updatedSection =
     await sectionRepository.updateSection(
@@ -128,78 +123,3 @@ const updateSectionService = async (
 };
 
 export default updateSectionService;
-
-// import ApiError from "../../../../../shared/ApiError.js";
-
-// import sectionDto from "../../dto/section.dto.js";
-
-// import * as sectionRepository from "../../repositories/section.repository.js";
-
-// import calculateSectionLevel from "../domain/calculateSectionLevel.service.js";
-// import calculateSectionPath from "../domain/calculateSectionPath.service.js";
-// import generateUniqueSlug from "../domain/generateUniqueSlug.service.js";
-
-// const updateSectionService = async (
-//   sectionId,
-//   payload,
-//   userId
-// ) => {
-//   const section =
-//     await sectionRepository.findSectionById(sectionId);
-
-//   if (!section) {
-//     throw new ApiError(404, "Section not found");
-//   }
-
-//   const updatePayload = {
-//     ...payload,
-//     updatedBy: userId,
-//   };
-
-//   if (
-//     payload.title &&
-//     payload.title !== section.title
-//   ) {
-//     updatePayload.slug =
-//       await generateUniqueSlug(
-//         payload.title,
-//         sectionId
-//       );
-//   }
-
-//   if (
-//     payload.parentSection !== undefined
-//   ) {
-//     let parentSection = null;
-
-//     if (payload.parentSection) {
-//       parentSection =
-//         await sectionRepository.findSectionById(
-//           payload.parentSection
-//         );
-
-//       if (!parentSection) {
-//         throw new ApiError(
-//           404,
-//           "Parent Section not found"
-//         );
-//       }
-//     }
-
-//     updatePayload.level =
-//       calculateSectionLevel(parentSection);
-
-//     updatePayload.path =
-//       calculateSectionPath(parentSection);
-//   }
-
-//   const updatedSection =
-//     await sectionRepository.updateSection(
-//       sectionId,
-//       updatePayload
-//     );
-
-//   return sectionDto(updatedSection);
-// };
-
-// export default updateSectionService;
