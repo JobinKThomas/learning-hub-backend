@@ -1,14 +1,15 @@
 import ApiError from "../../../../../shared/ApiError.js";
-
-import * as learningPathRepository from "../repositories/learningPath.repository.js";
-
-import learningPathPresenter from "../presenters/learningPath.presenter.js";
-
 import Errors from "../../../../../shared/constants/errors.js";
 
-const getLearningPathBySlugService = async (slug) => {
+import * as learningPathRepository from "../../repositories/learningPath.repository.js";
+
+const getLearningPathBySlugService = async (
+  slug
+) => {
   const learningPath =
-    await learningPathRepository.findLearningPathBySlug(slug);
+    await learningPathRepository.findLearningPathBySlug(
+      slug
+    );
 
   if (!learningPath) {
     throw new ApiError(
@@ -17,7 +18,7 @@ const getLearningPathBySlugService = async (slug) => {
     );
   }
 
-  return learningPathPresenter(learningPath);
+  return learningPath;
 };
 
 export default getLearningPathBySlugService;

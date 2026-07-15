@@ -1,20 +1,22 @@
 import { body } from "express-validator";
 
-import Difficulty from "../../shared/enums/difficulty.enum.js";
-import Visibility from "../../shared/enums/visibility.enum.js";
-import SubscriptionType from "../../shared/enums/subscription.enum.js";
-import ContentStatus from "../../shared/enums/contentStatus.enum.js";
+import Difficulty from "../../../../shared/enums/difficulty.enum.js";
+import Visibility from "../../../../shared/enums/visibility.enum.js";
+import SubscriptionType from "../../../../shared/enums/subscription.enum.js";
+import ContentStatus from "../../../../shared/enums/contentStatus.enum.js";
 
 export const createLearningPathValidator = [
   body("title")
     .trim()
     .notEmpty()
     .withMessage("Title is required")
-    .isLength({ min: 3, max: 100 }),
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Title must be between 3 and 100 characters."),
 
   body("shortDescription")
     .optional()
-    .isLength({ max: 250 }),
+    .isLength({ max: 250 })
+    .withMessage("Short description must be less than 250 characters."),
 
   body("difficulty")
     .optional()
@@ -30,19 +32,26 @@ export const createLearningPathValidator = [
 
   body("estimatedHours")
     .optional()
-    .isNumeric(),
-
+    .isInt({
+      min: 0,
+    }),
+    
   body("estimatedModules")
     .optional()
-    .isNumeric(),
+    .isInt({
+      min: 0,
+    }),
 
   body("estimatedNotes")
     .optional()
-    .isNumeric(),
+    .isInt({
+      min: 0,
+    }),
 
   body("tags")
     .optional()
-    .isArray(),
+    .isArray()
+    .withMessage("Tags must be an array."),
 ];
 
 export const updateLearningPathValidator = [

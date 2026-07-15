@@ -11,14 +11,27 @@ import Roles from "../../../../shared/constants/roles.js";
 import {
   createLearningPathValidator,
   updateLearningPathValidator,
+  updateLearningPathStatusValidator,
 } from "../validators/learningPath.validator.js";
 
 const router = Router();
 
 /**
+ * Public Routes
+ */
+router.get(
+  "/",
+  learningPathController.listLearningPaths
+);
+
+router.get(
+  "/:slug",
+  learningPathController.getLearningPathBySlug
+);
+
+/**
  * Admin Routes
  */
-
 router.post(
   "/",
   authMiddleware,
@@ -37,41 +50,6 @@ router.put(
   learningPathController.updateLearningPath
 );
 
-router.delete(
-  "/:id",
-  authMiddleware,
-  authorize(Roles.ADMIN),
-  learningPathController.deleteLearningPath
-);
-
-router.patch(
-  "/:id/publish",
-  authMiddleware,
-  authorize(Roles.ADMIN),
-  learningPathController.publishLearningPath
-);
-
-router.patch(
-  "/:id/archive",
-  authMiddleware,
-  authorize(Roles.ADMIN),
-  learningPathController.archiveLearningPath
-);
-
-/**
- * Public Routes
- */
-
-router.get(
-  "/",
-  learningPathController.getLearningPaths
-);
-
-router.get(
-  "/:slug",
-  learningPathController.getLearningPathBySlug
-);
-
 router.patch(
   "/:id/status",
   authMiddleware,
@@ -79,6 +57,13 @@ router.patch(
   updateLearningPathStatusValidator,
   validate,
   learningPathController.updateLearningPathStatus
+);
+
+router.delete(
+  "/:id",
+  authMiddleware,
+  authorize(Roles.ADMIN),
+  learningPathController.deleteLearningPath
 );
 
 export default router;

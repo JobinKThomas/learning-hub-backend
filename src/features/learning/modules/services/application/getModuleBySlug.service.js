@@ -1,21 +1,24 @@
 import ApiError from "../../../../../shared/ApiError.js";
-
-import moduleDto from "../../dto/module.dto.js";
+import Errors from "../../../../../shared/constants/errors.js";
 
 import * as moduleRepository from "../../repositories/module.repository.js";
 
-const getModuleBySlugService = async (slug) => {
+const getModuleBySlugService = async (
+  slug
+) => {
   const module =
-    await moduleRepository.findModuleBySlug(slug);
+    await moduleRepository.findModuleBySlug(
+      slug
+    );
 
   if (!module) {
     throw new ApiError(
       404,
-      "Module not found"
+      Errors.MODULE_NOT_FOUND
     );
   }
 
-  return moduleDto(module);
+  return module;
 };
 
 export default getModuleBySlugService;

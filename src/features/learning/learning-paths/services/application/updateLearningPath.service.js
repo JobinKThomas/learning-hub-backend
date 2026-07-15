@@ -1,11 +1,7 @@
-import ApiError from "../../../../../shared/ApiError.js";
+import * as learningPathRepository from "../../repositories/learningPath.repository.js";
 
-import learningPathPresenter from "../presenters/learningPath.presenter.js";
-
-import * as learningPathRepository from "../repositories/learningPath.repository.js";
-
+import ensureLearningPathExists from "../domain/ensureLearningPathExists.service.js";
 import generateUniqueSlug from "../domain/generateUniqueSlug.service.js";
-import Errors from "../../../../../shared/constants/errors.js";
 
 const updateLearningPathService = async (
   id,
@@ -13,14 +9,7 @@ const updateLearningPathService = async (
   userId
 ) => {
   const learningPath =
-    await learningPathRepository.findLearningPathById(id);
-
-  if (!learningPath) {
-    throw new ApiError(
-      404,
-      Errors.LEARNING_PATH_NOT_FOUND
-    );
-  }
+    await ensureLearningPathExists(id);
 
   const updateData = {
     ...payload,
@@ -32,16 +21,16 @@ const updateLearningPathService = async (
     payload.title !== learningPath.title
   ) {
     updateData.slug =
-      await generateUniqueSlug(payload.title);
+      await generateUniqueSlug(
+        payload.title,
+        learningPath._id
+      );
   }
 
-  const updatedLearningPath =
-    await learningPathRepository.updateLearningPath(
-      id,
-      updateData
-    );
-
-  return learningPathPresenter(updatedLearningPath);
+  return learningPathRepository.updateLearningPath(
+    id,
+    updateData
+  );
 };
 
 export default updateLearningPathService;

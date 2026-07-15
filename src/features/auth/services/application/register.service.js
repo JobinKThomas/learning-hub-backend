@@ -1,20 +1,27 @@
-import ApiError from "../../../shared/ApiError.js";
-import userDto from "../dto/user.dto.js";
-import {
-  findUserByEmail,
-  createUser,
-} from "../repositories/auth.repository.js";
+import ApiError from "../../../../shared/ApiError.js";
+import Errors from "../../../../shared/constants/errors.js";
+
+import * as authRepository from "../../repositories/auth.repository.js";
 
 const registerService = async (payload) => {
-  const existingUser = await findUserByEmail(payload.email);
+  const existingUser =
+    await authRepository.findUserByEmail(
+      payload.email
+    );
 
   if (existingUser) {
-    throw new ApiError(409, "Email already exists");
+    throw new ApiError(
+      409,
+      Errors.EMAIL_ALREADY_EXISTS
+    );
   }
 
-  const user = await createUser(payload);
+  const user =
+    await authRepository.createUser(
+      payload
+    );
 
-  return userDto(user);
+  return user;
 };
 
 export default registerService;

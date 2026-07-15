@@ -6,7 +6,7 @@ import Difficulty from "../../../../shared/enums/difficulty.enum.js";
 import Visibility from "../../../../shared/enums/visibility.enum.js";
 import SubscriptionType from "../../../../shared/enums/subscription.enum.js";
 import ContentStatus from "../../../../shared/enums/contentStatus.enum.js";
-import createSlug from "../../../../shared/utils/slug.util.js";
+import createSlug from "../../../../shared/services/slugify.service.js";
 
 const learningPathSchema = new mongoose.Schema(
   {

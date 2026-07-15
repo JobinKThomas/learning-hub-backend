@@ -4,7 +4,9 @@ import * as authController from "../controllers/auth.controller.js";
 
 import {
   registerValidator,
-  loginValidator
+  loginValidator,
+  refreshValidator,
+  logoutValidator,
 } from "../validators/auth.validator.js";
 
 import validate from "../../../middleware/validate.middleware.js";
@@ -12,6 +14,9 @@ import authMiddleware from "../../../middleware/auth.middleware.js";
 
 const router = Router();
 
+/**
+ * Register
+ */
 router.post(
   "/register",
   registerValidator,
@@ -19,6 +24,9 @@ router.post(
   authController.register
 );
 
+/**
+ * Login
+ */
 router.post(
   "/login",
   loginValidator,
@@ -26,10 +34,29 @@ router.post(
   authController.login
 );
 
-router.post("/logout", authController.logout);
+/**
+ * Refresh Token
+ */
+router.post(
+  "/refresh",
+  refreshValidator,
+  validate,
+  authController.refresh
+);
 
-router.post("/refresh", authController.refresh);
+/**
+ * Logout
+ */
+router.post(
+  "/logout",
+  logoutValidator,
+  validate,
+  authController.logout
+);
 
+/**
+ * Current User
+ */
 router.get(
   "/me",
   authMiddleware,

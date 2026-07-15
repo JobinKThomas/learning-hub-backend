@@ -89,6 +89,18 @@ const baseContentSchema = {
     default: null,
     select: false,
   },
+
+  seo: {
+  title: {
+    type: String,
+    default: "",
+  },
+
+  keywords: {
+    type: [String],
+    default: [],
+  },
+},
 };
 
 export default baseContentSchema;

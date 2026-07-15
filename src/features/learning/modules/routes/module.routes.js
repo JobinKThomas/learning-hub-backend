@@ -2,12 +2,26 @@ import { Router } from "express";
 
 import * as moduleController from "../controllers/module.controller.js";
 
+import authMiddleware from "../../../../middleware/auth.middleware.js";
+import authorize from "../../../../middleware/authorize.middleware.js";
+import validate from "../../../../middleware/validate.middleware.js";
+
+import Roles from "../../../../shared/constants/roles.js";
+
+import {
+  createModuleValidator,
+  updateModuleValidator,
+  updateModuleStatusValidator,
+} from "../validators/module.validator.js";
 
 const router = Router();
 
+/**
+ * Public Routes
+ */
 router.get(
-"/learning-paths/:learningPathId/modules",
-moduleController.listModules
+  "/learning-paths/:learningPathId/modules",
+  moduleController.listModules
 );
 
 router.get(
@@ -15,7 +29,19 @@ router.get(
   moduleController.getModuleBySlug
 );
 
-router.patch(
+/**
+ * Admin Routes
+ */
+router.post(
+  "/learning-paths/:learningPathId/modules",
+  authMiddleware,
+  authorize(Roles.ADMIN),
+  createModuleValidator,
+  validate,
+  moduleController.createModule
+);
+
+router.put(
   "/modules/:id",
   authMiddleware,
   authorize(Roles.ADMIN),
@@ -25,17 +51,19 @@ router.patch(
 );
 
 router.patch(
-"/modules/:id/status",
-authMiddleware,
-authorize(Roles.ADMIN),
-updateModuleStatusValidator,
-validate,
-moduleController.updateModuleStatus
+  "/modules/:id/status",
+  authMiddleware,
+  authorize(Roles.ADMIN),
+  updateModuleStatusValidator,
+  validate,
+  moduleController.updateModuleStatus
 );
 
 router.delete(
-"/modules/:id",
-authMiddleware,
-authorize(Roles.ADMIN),
-moduleController.deleteModule
+  "/modules/:id",
+  authMiddleware,
+  authorize(Roles.ADMIN),
+  moduleController.deleteModule
 );
+
+export default router;
