@@ -1,21 +1,13 @@
-import ApiError from "../../../../../shared/ApiError.js";
-
 import * as moduleRepository from "../../repositories/module.repository.js";
 
-const updateModuleStatusService = async ({
+import ensureModuleExists from "../domain/ensureModuleExists.service.js";
+
+const updateModuleStatusService = async (
   id,
   status,
-  userId,
-}) => {
-  const module =
-    await moduleRepository.findModuleById(id);
-
-  if (!module) {
-    throw new ApiError(
-      404,
-      "Module not found"
-    );
-  }
+  userId
+) => {
+  await ensureModuleExists(id);
 
   return moduleRepository.updateModule(
     id,

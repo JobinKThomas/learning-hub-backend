@@ -20,8 +20,6 @@ export const Messages = {
   MODULE_DELETED:
     "Module deleted successfully.",
 
-  MODULE_NOT_FOUND: "Module not found",
-  
   SECTION_CREATED:
     "Section created successfully.",
 
