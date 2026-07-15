@@ -16,6 +16,8 @@ const Errors = Object.freeze({
 
   SECTION_HAS_CHILDREN:
     "Cannot delete a section that has child sections.",
+  
+  TOPIC_NOT_FOUND: "Topic not found",
 });
 
 export default Errors;
