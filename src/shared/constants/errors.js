@@ -18,6 +18,10 @@ const Errors = Object.freeze({
     "Cannot delete a section that has child sections.",
   
   TOPIC_NOT_FOUND: "Topic not found",
+
+  NOTE_NOT_FOUND: "Note not found",
+
+  NOTE_ALREADY_EXISTS: "Note already exists",
 });
 
 export default Errors;
