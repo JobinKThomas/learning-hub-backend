@@ -31,4 +31,18 @@ export const Messages = {
 
   SECTION_STATUS_UPDATED:
     "Section status updated successfully.",
+
+  TOPIC_CREATED:
+    "Topic created successfully.",
+
+  TOPIC_UPDATED:
+    "Topic updated successfully.",
+
+  TOPIC_DELETED:
+    "Topic deleted successfully.",
+
+  TOPIC_STATUS_UPDATED:
+    "Topic status updated successfully.",
+
+  SUCCESS: "Success",
 };
