@@ -62,5 +62,13 @@ export const Messages = {
   QUESTION_CREATED: "Question created successfully.",
   QUESTION_UPDATED: "Question updated successfully.",
   QUESTION_DELETED: "Question deleted successfully.",
+  INTERVIEW_QUESTION_NOT_FOUND: "Interview question not found.",
+  INTERVIEW_QUESTION_CREATED: "Interview question created successfully.",
+
+  INTERVIEW_QUESTION_UPDATED: "Interview question updated successfully.",
+
+  INTERVIEW_QUESTION_STATUS_UPDATED: "Interview question status updated successfully.",
+
+  INTERVIEW_QUESTION_DELETED: "Interview question deleted successfully.",
   
 };
