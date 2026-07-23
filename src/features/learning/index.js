@@ -4,6 +4,7 @@ import learningPathRoutes from "./learning-paths/routes/learningPath.routes.js";
 import moduleRoutes from "./modules/routes/module.routes.js";
 import sectionRoutes from "./sections/routes/section.routes.js";
 import resourceRoutes from "./resources/routes/resource.routes.js";
+import playgroundRoutes from "./playground/routes/playground.routes.js";
 
 const router = Router();
 
@@ -25,5 +26,10 @@ router.use(
 router.use(
   "/resources",
   resourceRoutes
+);
+
+router.use(
+  "/playgrounds",
+  playgroundRoutes
 );
 export default router;

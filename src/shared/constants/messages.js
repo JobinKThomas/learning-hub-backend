@@ -51,4 +51,9 @@ export const Messages = {
   RESOURCE_STATUS_UPDATED:
     "Resource status updated successfully.",
   RESOURCE_DELETED: "Resource deleted successfully.",
+  PLAYGROUND_CREATED: "Playground created successfully.",
+  PLAYGROUND_UPDATED: "Playground updated successfully.",
+  PLAYGROUND_STATUS_UPDATED: "Playground status updated successfully.",
+  PLAYGROUND_DELETED: "Playground deleted successfully.",
+  
 };
