@@ -59,5 +59,8 @@ export const Messages = {
   QUIZ_UPDATED: "Quiz updated successfully.",
   QUIZ_STATUS_UPDATED: "Quiz status updated successfully.",
   QUIZ_DELETED: "Quiz deleted successfully.",
+  QUESTION_CREATED: "Question created successfully.",
+  QUESTION_UPDATED: "Question updated successfully.",
+  QUESTION_DELETED: "Question deleted successfully.",
   
 };

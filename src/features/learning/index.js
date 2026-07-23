@@ -6,6 +6,7 @@ import sectionRoutes from "./sections/routes/section.routes.js";
 import resourceRoutes from "./resources/routes/resource.routes.js";
 import playgroundRoutes from "./playground/routes/playground.routes.js";
 import quizRoutes from "./quizzes/routes/quiz.routes.js";
+import questionRoutes from "./quizzes/routes/quizQuestion.routes.js";
 
 const router = Router();
 
@@ -34,6 +35,14 @@ router.use(
   playgroundRoutes
 );
 
-router.use("/quizzes", quizRoutes);
+router.use(
+  "/quizzes",
+  quizRoutes
+);
+
+router.use(
+  "/questions",
+  questionRoutes
+);
 
 export default router;
