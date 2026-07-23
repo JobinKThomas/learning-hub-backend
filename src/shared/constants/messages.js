@@ -45,4 +45,10 @@ export const Messages = {
     "Topic status updated successfully.",
 
   SUCCESS: "Success",
+
+  RESOURCE_CREATED: "Resource created successfully.",
+  RESOURCE_UPDATED: "Resource updated successfully.",
+  RESOURCE_STATUS_UPDATED:
+    "Resource status updated successfully.",
+  RESOURCE_DELETED: "Resource deleted successfully.",
 };
