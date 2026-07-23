@@ -55,5 +55,12 @@ export const Messages = {
   PLAYGROUND_UPDATED: "Playground updated successfully.",
   PLAYGROUND_STATUS_UPDATED: "Playground status updated successfully.",
   PLAYGROUND_DELETED: "Playground deleted successfully.",
+  QUIZ_CREATED: "Quiz created successfully.",
+  QUIZ_UPDATED: "Quiz updated successfully.",
+  QUIZ_STATUS_UPDATED: "Quiz status updated successfully.",
+  QUIZ_DELETED: "Quiz deleted successfully.",
+  QUESTION_CREATED: "Question created successfully.",
+  QUESTION_UPDATED: "Question updated successfully.",
+  QUESTION_DELETED: "Question deleted successfully.",
   
 };
