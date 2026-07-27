@@ -23,11 +23,15 @@ export const findPlaygroundById = (id) => {
 /**
  * Find Playground by Slug
  */
-export const findPlaygroundBySlug = (slug) => {
+export const findPlaygroundBySlug = (
+  slug,
+  filters = {}
+) => {
   return Playground.findOne({
     slug,
     deletedAt: null,
-  });
+    ...filters,
+  }).lean();
 };
 
 /**

@@ -24,11 +24,15 @@ export const findQuizById = (id) => {
 /**
  * Find Quiz by Slug
  */
-export const findQuizBySlug = (slug) => {
+export const findQuizBySlug = (
+  slug,
+  filters = {}
+) => {
   return Quiz.findOne({
     slug,
     deletedAt: null,
-  });
+    ...filters,
+  }).lean();
 };
 
 /**

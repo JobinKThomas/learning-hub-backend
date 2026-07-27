@@ -26,10 +26,14 @@ export const findNoteById = (id) => {
 /**
  * Find Note by Slug
  */
-export const findNoteBySlug = (slug) => {
+export const findNoteBySlug = (
+  slug,
+  filters = {}
+) => {
   return Note.findOne({
     slug,
     deletedAt: null,
+    ...filters,
   }).lean();
 };
 

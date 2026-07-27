@@ -26,11 +26,15 @@ export const findSectionById = (id) => {
 /**
  * Find Section by Slug
  */
-export const findSectionBySlug = (slug) => {
+export const findSectionBySlug = (
+  slug,
+  filters = {}
+) => {
   return Section.findOne({
     slug,
     deletedAt: null,
-  });
+    ...filters,
+  }).lean();
 };
 
 /**

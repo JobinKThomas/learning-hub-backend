@@ -7,6 +7,8 @@ import morgan from "morgan";
 import routes from "./routes/index.js";
 import errorHandler from "./middleware/error.middleware.js";
 
+import publicRoutes from "./api/public/index.js";
+
 const app = express();
 
 app.use(helmet());
@@ -27,6 +29,8 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.use("/api", routes);
+
+app.use("/api/public", publicRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
