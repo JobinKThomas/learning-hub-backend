@@ -80,3 +80,14 @@ export const findInterviewQuestionsByTopic = (
       order: 1,
     });
 };
+
+export const findInterviewQuestionBySlug = (
+  slug,
+  filters = {}
+) => {
+  return InterviewQuestion.findOne({
+    slug,
+    deletedAt: null,
+    ...filters,
+  }).lean();
+};

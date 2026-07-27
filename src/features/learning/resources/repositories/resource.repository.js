@@ -31,9 +31,7 @@ export const findResourceBySlug = (
     slug,
     deletedAt: null,
     ...filters,
-  })
-    .populate("topic", "title slug")
-    .lean();
+  }).lean();
 };
 
 /**
