@@ -92,5 +92,30 @@ export const Messages = {
   SECTION_FETCHED: "Section fetched successfully.",
   TOPIC_FETCHED:
     "Topic fetched successfully.",
+  NOTE_FETCHED:
+    "Note fetched successfully.",
 
+  NOTE_NOT_FOUND:
+    "Note not found.",
+  RESOURCE_FETCHED:
+    "Resource fetched successfully.",
+
+  RESOURCE_NOT_FOUND:
+    "Resource not found.",
+  PLAYGROUND_FETCHED:
+    "Playground fetched successfully.",
+
+  PLAYGROUND_NOT_FOUND:
+    "Playground not found.",
+  QUIZ_FETCHED:
+    "Quiz fetched successfully.",
+
+  QUIZ_NOT_FOUND:
+    "Quiz not found.",
+  
+  INTERVIEW_QUESTION_FETCHED:
+    "Interview question fetched successfully.",
+
+  INTERVIEW_QUESTION_NOT_FOUND:
+    "Interview question not found.",
 };
