@@ -1,15 +1,15 @@
-import Section from "../models/Section.js";
+import Note from "../models/Note.js";
 
 import buildSearchQuery from "../../../../shared/builders/searchQuery.builder.js";
 
 /**
- * Search Published Sections
+ * Search Published Notes
  */
-export const searchSections = ({
+export const searchNotes = ({
   search,
   limit = 5,
 }) => {
-  return Section.find(
+  return Note.find(
     buildSearchQuery(search)
   )
     .sort({

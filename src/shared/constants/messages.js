@@ -118,4 +118,8 @@ export const Messages = {
 
   INTERVIEW_QUESTION_NOT_FOUND:
     "Interview question not found.",
+  SEARCH_COMPLETED:
+    "Search completed successfully.",
+  QUIZ_ATTEMPT_NOT_FOUND:
+    "Quiz attempt not found.",
 };
