@@ -6,6 +6,9 @@ import {
   MAX_LIMIT,
 } from "../../../../shared/constants/pagination.js";
 
+import buildContentQuery from "../../../../shared/builders/contentQuery.builder.js";
+import buildSort from "../../../../shared/builders/sort.builder.js";
+
 /**
  * Create Module
  */
@@ -26,10 +29,14 @@ export const findModuleById = (id) => {
 /**
  * Find Module by Slug
  */
-export const findModuleBySlug = (slug) => {
+export const findModuleBySlug = (
+  slug,
+  filters = {}
+) => {
   return Module.findOne({
     slug,
     deletedAt: null,
+    ...filters,
   }).lean();
 };
 
@@ -37,15 +44,10 @@ export const findModuleBySlug = (slug) => {
  * Find Modules
  */
 export const findModules = async ({
-  learningPath,
   page = DEFAULT_PAGE,
   limit = DEFAULT_LIMIT,
-  search,
-  difficulty,
-  visibility,
-  subscriptionType,
-  status,
   sort = "order",
+  ...filters
 } = {}) => {
   const safePage = Math.max(1, Number(page));
 
@@ -54,49 +56,15 @@ export const findModules = async ({
     Math.max(1, Number(limit))
   );
 
-  const query = {
-    deletedAt: null,
-  };
+  const query = buildContentQuery(filters);
 
-  if (learningPath) {
-    query.learningPath = learningPath;
-  }
-
-  if (search) {
-    query.$text = {
-      $search: search,
-    };
-  }
-
-  if (difficulty) {
-    query.difficulty = difficulty;
-  }
-
-  if (visibility) {
-    query.visibility = visibility;
-  }
-
-  if (subscriptionType) {
-    query.subscriptionType = subscriptionType;
-  }
-
-  if (status) {
-    query.status = status;
-  }
-
-  const allowedSortFields = [
-    "order",
-    "title",
-    "createdAt",
-    "updatedAt",
-  ];
-
-  const sortField = allowedSortFields.includes(sort)
-    ? sort
-    : "order";
+  const sortOptions =
+    sort === "order"
+      ? { order: 1 }
+      : buildSort(sort);
 
   return Module.find(query)
-    .sort({ [sortField]: 1 })
+    .sort(sortOptions)
     .skip((safePage - 1) * safeLimit)
     .limit(safeLimit)
     .lean();
@@ -105,7 +73,11 @@ export const findModules = async ({
 /**
  * Count Modules
  */
-export const countModules = (query = {}) => {
+export const countModules = (
+  filters = {}
+) => {
+  const query = buildContentQuery(filters);
+
   return Module.countDocuments(query);
 };
 

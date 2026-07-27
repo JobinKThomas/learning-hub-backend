@@ -23,14 +23,17 @@ export const findResourceById = (id) => {
 /**
  * Find Resource by Slug
  */
-export const findResourceBySlug = (slug) => {
+export const findResourceBySlug = (
+  slug,
+  filters = {}
+) => {
   return Resource.findOne({
     slug,
     deletedAt: null,
-  }).populate(
-    "topic",
-    "title slug"
-  );
+    ...filters,
+  })
+    .populate("topic", "title slug")
+    .lean();
 };
 
 /**

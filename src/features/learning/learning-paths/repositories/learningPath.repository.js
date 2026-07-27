@@ -28,10 +28,14 @@ export const findLearningPathById = (id) => {
  * Find Learning Path by Slug
  * Returns a plain object (read-only)
  */
-export const findLearningPathBySlug = (slug) => {
+export const findLearningPathBySlug = (
+  slug,
+  filters = {}
+) => {
   return LearningPath.findOne({
     slug,
     deletedAt: null,
+    ...filters,
   }).lean();
 };
 
@@ -102,11 +106,41 @@ export const findLearningPaths = async ({
 /**
  * Count Learning Paths
  */
-export const countLearningPaths = (filters = {}) => {
-  return LearningPath.countDocuments({
-    ...filters,
+export const countLearningPaths = ({
+  search,
+  difficulty,
+  visibility,
+  subscriptionType,
+  status,
+} = {}) => {
+  const query = {
     deletedAt: null,
-  });
+  };
+
+  if (search) {
+    query.$text = {
+      $search: search,
+    };
+  }
+
+  if (difficulty) {
+    query.difficulty = difficulty;
+  }
+
+  if (visibility) {
+    query.visibility = visibility;
+  }
+
+  if (subscriptionType) {
+    query.subscriptionType =
+      subscriptionType;
+  }
+
+  if (status) {
+    query.status = status;
+  }
+
+  return LearningPath.countDocuments(query);
 };
 
 /**

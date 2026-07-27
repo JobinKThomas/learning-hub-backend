@@ -70,5 +70,27 @@ export const Messages = {
   INTERVIEW_QUESTION_STATUS_UPDATED: "Interview question status updated successfully.",
 
   INTERVIEW_QUESTION_DELETED: "Interview question deleted successfully.",
-  
+
+  LEARNING_PATHS_FETCHED:
+  "Learning paths fetched successfully.",
+
+  LEARNING_PATH_FETCHED:
+    "Learning path fetched successfully.",
+
+  LEARNING_PATH_NOT_FOUND:
+    "Learning path not found.",
+
+  MODULE_NOT_FOUND:
+    "Module not found.",
+
+  SECTION_NOT_FOUND:
+    "Section not found.",
+
+  TOPIC_NOT_FOUND:
+    "Topic not found.",
+  MODULE_FETCHED: "Module fetched successfully.",
+  SECTION_FETCHED: "Section fetched successfully.",
+  TOPIC_FETCHED:
+    "Topic fetched successfully.",
+
 };
