@@ -10,6 +10,7 @@ import resourceRoutes from "./resource.routes.js";
 import playgroundRoutes from "./playground.routes.js";
 import quizRoutes from "./quiz.routes.js";
 import interviewQuestionRoutes from "./interviewQuestion.routes.js";
+import searchRoutes from "./search.routes.js";
 
 const router = Router();
 
@@ -86,5 +87,10 @@ router.use(
   "/interview-questions",
   interviewQuestionRoutes
 );
+
+/**
+ * Search
+ */
+router.use("/search", searchRoutes);
 
 export default router;
