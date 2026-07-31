@@ -14,9 +14,8 @@ const createPlaygroundService = async (
 
   const slug =
     await generateUniqueSlug({
-      repository:
-        playgroundRepository,
-      title: payload.title,
+      repository: playgroundRepository,
+      value: payload.title,
     });
 
   const playground =

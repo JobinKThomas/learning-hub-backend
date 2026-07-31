@@ -38,7 +38,7 @@ router.post(
  * Refresh Token
  */
 router.post(
-  "/refresh",
+  "/refresh-token",
   refreshValidator,
   validate,
   authController.refresh

@@ -39,9 +39,8 @@ const updateResourceService = async (
   ) {
     updatePayload.slug =
       await generateUniqueSlug({
-        repository:
-          resourceRepository,
-        title: payload.title,
+        repository: resourceRepository,
+        value: payload.title,
         excludeId: id,
       });
   }

@@ -1,4 +1,4 @@
-import * as learningPathRepository from "../repositories/learningPath.repository.js";
+import * as learningPathRepository from "../../repositories/learningPath.repository.js";
 
 import generateUniqueSlug from "../domain/generateUniqueSlug.service.js";
 

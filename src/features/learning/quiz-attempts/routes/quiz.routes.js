@@ -8,7 +8,7 @@ import { submitQuizValidator } from "../../../../features/learning/quiz-attempts
 const router = Router();
 
 /**
- * GET /api/public/quizzes/:slug
+ * GET /api/public/quiz/:slug
  */
 router.get(
   "/:slug",
@@ -16,7 +16,7 @@ router.get(
 );
 
 /**
- * POST /api/public/quizzes/:slug/submit
+ * POST /api/public/quiz/:slug/submit
  */
 router.post(
   "/:slug/submit",

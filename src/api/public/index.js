@@ -10,7 +10,6 @@ import resourceRoutes from "./resource.routes.js";
 import playgroundRoutes from "./playground.routes.js";
 import quizRoutes from "./quiz.routes.js";
 import interviewQuestionRoutes from "./interviewQuestion.routes.js";
-import searchRoutes from "./search.routes.js";
 
 const router = Router();
 

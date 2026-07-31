@@ -34,7 +34,7 @@ const updateQuizService = async (
     updatePayload.slug =
       await generateUniqueSlug({
         repository: quizRepository,
-        title: payload.title,
+        value: payload.title,
         excludeId: id,
       });
   }

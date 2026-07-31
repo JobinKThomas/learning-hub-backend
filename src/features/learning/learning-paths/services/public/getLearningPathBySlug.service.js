@@ -3,7 +3,7 @@ import ApiError from "../../../../../shared/ApiError.js";
 import ContentStatus from "../../../../../shared/enums/contentStatus.enum.js";
 import Visibility from "../../../../../shared/enums/visibility.enum.js";
 
-import Messages from "../../../../../shared/constants/messages.js";
+import {Messages} from "../../../../../shared/constants/messages.js";
 
 import learningPathPresenter from "../../presenters/public/learningPath.presenter.js";
 

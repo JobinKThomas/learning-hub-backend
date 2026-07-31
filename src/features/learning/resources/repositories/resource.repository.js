@@ -33,7 +33,7 @@ export const findResourceBySlug = (
     ...filters,
   }).lean();
 };
-
+export const findBySlug = findResourceBySlug;
 /**
  * Find Resources
  */

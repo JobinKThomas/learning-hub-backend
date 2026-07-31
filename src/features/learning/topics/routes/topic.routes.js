@@ -9,7 +9,7 @@ import validate from "../../../../middleware/validate.middleware.js";
 import Roles from "../../../../shared/constants/roles.js";
 
 import {
-  createTopicValidator,
+  // createTopicValidator,
   updateTopicValidator,
   updateTopicStatusValidator,
 } from "../validators/topic.validator.js";
@@ -29,17 +29,17 @@ router.get(
   topicController.getTopicBySlug
 );
 
-/**
- * Admin
- */
-router.post(
-  "/",
-  authMiddleware,
-  authorize(Roles.ADMIN),
-  createTopicValidator,
-  validate,
-  topicController.createTopic
-);
+// /**
+//  * Admin
+//  */
+// router.post(
+//   "/",
+//   authMiddleware,
+//   authorize(Roles.ADMIN),
+//   createTopicValidator,
+//   validate,
+//   topicController.createTopic
+// );
 
 router.put(
   "/:id",

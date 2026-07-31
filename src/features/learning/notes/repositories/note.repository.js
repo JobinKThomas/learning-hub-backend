@@ -37,6 +37,8 @@ export const findNoteBySlug = (
   }).lean();
 };
 
+export const findBySlug = findNoteBySlug;
+
 /**
  * Find Notes
  */

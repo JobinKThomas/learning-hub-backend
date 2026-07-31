@@ -34,9 +34,8 @@ const updatePlaygroundService = async (
   ) {
     updatePayload.slug =
       await generateUniqueSlug({
-        repository:
-          playgroundRepository,
-        title: payload.title,
+        repository: playgroundRepository,
+        value: payload.title,
         excludeId: id,
       });
   }

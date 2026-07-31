@@ -8,4 +8,4 @@ const createSlug = (value) => {
   });
 };
 
-export default createSlug;
+export default createSlug;  

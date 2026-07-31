@@ -67,7 +67,6 @@ topicSchema.pre("save", function (next) {
     this.slug = createSlug(this.title);
   }
 
-  next();
 });
 
 /**

@@ -43,11 +43,37 @@ export const findModuleBySlug = (
 /**
  * Find Modules
  */
+// export const findModules = async ({
+//   page = DEFAULT_PAGE,
+//   limit = DEFAULT_LIMIT,
+//   sort = "order",
+//   ...filters
+// } = {}) => {
+//   const safePage = Math.max(1, Number(page));
+
+//   const safeLimit = Math.min(
+//     MAX_LIMIT,
+//     Math.max(1, Number(limit))
+//   );
+
+//   const query = buildContentQuery(filters);
+
+//   const sortOptions =
+//     sort === "order"
+//       ? { order: 1 }
+//       : buildSort(sort);
+
+//   return Module.find(query)
+//     .sort(sortOptions)
+//     .skip((safePage - 1) * safeLimit)
+//     .limit(safeLimit)
+//     .lean();
+// };
 export const findModules = async ({
+  query = {},
   page = DEFAULT_PAGE,
   limit = DEFAULT_LIMIT,
   sort = "order",
-  ...filters
 } = {}) => {
   const safePage = Math.max(1, Number(page));
 
@@ -55,8 +81,6 @@ export const findModules = async ({
     MAX_LIMIT,
     Math.max(1, Number(limit))
   );
-
-  const query = buildContentQuery(filters);
 
   const sortOptions =
     sort === "order"
@@ -73,14 +97,16 @@ export const findModules = async ({
 /**
  * Count Modules
  */
-export const countModules = (
-  filters = {}
-) => {
-  const query = buildContentQuery(filters);
+// export const countModules = (
+//   filters = {}
+// ) => {
+//   const query = buildContentQuery(filters);
 
+//   return Module.countDocuments(query);
+// };
+export const countModules = ({ query = {} } = {}) => {
   return Module.countDocuments(query);
 };
-
 /**
  * Update Module
  */

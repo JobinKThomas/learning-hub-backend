@@ -34,7 +34,7 @@ export const findQuizBySlug = (
     ...filters,
   }).lean();
 };
-
+export const findBySlug = findQuizBySlug;
 /**
  * Find Quizzes
  */

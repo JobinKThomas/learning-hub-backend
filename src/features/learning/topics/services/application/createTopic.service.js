@@ -26,6 +26,9 @@ const createTopicService = async (
     await generateUniqueTopicSlug(
       payload.title
     );
+  const section = await ensureSectionExists(payload.section);
+  payload.module = section.module;
+  payload.learningPath = section.learningPath;
 
   return topicRepository.createTopic({
     ...payload,

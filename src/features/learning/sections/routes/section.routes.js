@@ -16,33 +16,33 @@ import {
 
 const router = Router();
 
-/**
- * Public Routes
- */
-router.get(
-  "/modules/:moduleId/sections",
-  sectionController.listSections
-);
+// /**
+//  * Public Routes
+//  */
+// router.get(
+//   "/:moduleId/sections",
+//   sectionController.listSections
+// );
 
 router.get(
-  "/sections/:slug",
+  "/:slug",
   sectionController.getSectionBySlug
 );
 
 /**
  * Admin Routes
  */
-router.post(
-  "/modules/:moduleId/sections",
-  authMiddleware,
-  authorize(Roles.ADMIN),
-  createSectionValidator,
-  validate,
-  sectionController.createSection
-);
+// router.post(
+//   "/:moduleId/sections",
+//   authMiddleware,
+//   authorize(Roles.ADMIN),
+//   createSectionValidator,
+//   validate,
+//   sectionController.createSection
+// );
 
 router.put(
-  "/sections/:id",
+  "/:id",
   authMiddleware,
   authorize(Roles.ADMIN),
   updateSectionValidator,
@@ -51,7 +51,7 @@ router.put(
 );
 
 router.patch(
-  "/sections/:id/status",
+  "/:id/status",
   authMiddleware,
   authorize(Roles.ADMIN),
   updateSectionStatusValidator,
@@ -60,7 +60,7 @@ router.patch(
 );
 
 router.delete(
-  "/sections/:id",
+  "/:id",
   authMiddleware,
   authorize(Roles.ADMIN),
   sectionController.deleteSection

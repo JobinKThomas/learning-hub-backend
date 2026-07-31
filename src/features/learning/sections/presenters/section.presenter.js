@@ -6,7 +6,7 @@ const sectionPresenter = (
   }
 
   return {
-    id: section.id,
+    id: section._id?.toString() || section.id,
 
     title: section.title,
 

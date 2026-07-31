@@ -104,3 +104,8 @@ learningPathSchema.virtual("totalContent").get(function () {
 learningPathSchema.virtual("url").get(function () {
   return `/learning-paths/${this.slug}`;
 });
+
+export default mongoose.model(
+  "LearningPath",
+  learningPathSchema
+);
