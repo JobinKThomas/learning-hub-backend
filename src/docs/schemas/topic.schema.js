@@ -70,18 +70,32 @@
  *           type: string
  *         title:
  *           type: string
+ *           example: Functional Components
  *         shortDescription:
  *           type: string
+ *           example: Learn React Functional Components
  *         description:
  *           type: string
+ *           example: Complete guide to Functional Components.
  *         visibility:
  *           type: string
+ *           enum:
+ *             - PUBLIC
+ *             - PRIVATE
  *         subscriptionType:
  *           type: string
+ *           enum:
+ *             - FREE
+ *             - PREMIUM
  *         difficulty:
  *           type: string
+ *           enum:
+ *             - BEGINNER
+ *             - INTERMEDIATE
+ *             - ADVANCED
  *         order:
  *           type: integer
+ *           example: 1
  *
  *     TopicResponse:
  *       allOf:

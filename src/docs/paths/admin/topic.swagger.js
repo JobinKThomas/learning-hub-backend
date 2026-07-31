@@ -5,15 +5,47 @@
  *     description: Topic Management APIs
  */
 
+// /**
+//  * @openapi
+//  * /topics:
+//  *   post:
+//  *     tags:
+//  *       - Admin Topics
+//  *     summary: Create Topic
+//  *     security:
+//  *       - bearerAuth: []
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             $ref: '#/components/schemas/TopicRequest'
+//  *     responses:
+//  *       201:
+//  *         description: Topic created successfully.
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               $ref: '#/components/schemas/TopicResponse'
+//  */
 /**
  * @openapi
- * /topics:
+ * /sections/{sectionId}/topics:
  *   post:
  *     tags:
  *       - Admin Topics
  *     summary: Create Topic
+ *     description: Create a new topic under the specified section.
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: sectionId
+ *         required: true
+ *         description: Section ID
+ *         schema:
+ *           type: string
+ *           example: 6a6c3542cbf66ae3b273cf68
  *     requestBody:
  *       required: true
  *       content:
@@ -27,6 +59,14 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/TopicResponse'
+ *       400:
+ *         description: Validation failed.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden.
+ *       404:
+ *         description: Section not found.
  */
 
 /**

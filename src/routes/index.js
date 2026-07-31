@@ -13,6 +13,7 @@ import resourcesRoutes from "../features/learning/resources/routes/resource.rout
 import playgroundsRoutes from "../features/learning/playground/routes/playground.routes.js";
 import quizzessRoutes from "../features/learning/quizzes/routes/quiz.routes.js";
 import quizQuestionsRoutes from "../features/learning/quizzes/routes/quizQuestion.routes.js";
+import quizAttempts from "../features/learning/quiz-attempts/routes/quiz.routes.js";
 
 
 const router = Router();
@@ -30,6 +31,7 @@ router.use("/resources", resourcesRoutes);
 router.use("/playgrounds", playgroundsRoutes);
 router.use("/quizzes", quizzessRoutes);
 router.use("/quiz-questions", quizQuestionsRoutes);
+router.use("/quiz", quizAttempts);
 
 
 export default router;
