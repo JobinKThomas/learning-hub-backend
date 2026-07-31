@@ -22,6 +22,7 @@ const learningPathPresenter = (learningPath) => {
     status,
     createdAt,
     updatedAt,
+    _id
   } = learningPath;
 
   return {
@@ -45,6 +46,7 @@ const learningPathPresenter = (learningPath) => {
     status,
     createdAt,
     updatedAt,
+    _id
   };
 };
 

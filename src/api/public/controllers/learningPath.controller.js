@@ -1,7 +1,7 @@
 import asyncHandler from "../../../middleware/asyncHandler.middleware.js";
 
 import ApiResponse from "../../../shared/ApiResponse.js";
-import Messages from "../../../shared/constants/messages.js";
+import {Messages} from "../../../shared/constants/messages.js";
 
 import getLearningPathsService from "../../../features/learning/learning-paths/services/public/getLearningPathBySlug.service.js";
 import getLearningPathBySlugService from "../../../features/learning/learning-paths/services/public/getLearningPaths.service.js";

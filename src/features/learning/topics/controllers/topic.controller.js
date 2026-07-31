@@ -1,7 +1,7 @@
 import asyncHandler from "../../../../middleware/asyncHandler.middleware.js";
 
 import ApiResponse from "../../../../shared/ApiResponse.js";
-import Messages from "../../../../shared/constants/messages.js";
+import {Messages} from "../../../../shared/constants/messages.js";
 
 import topicPresenter from "../presenters/topic.presenter.js";
 
@@ -12,9 +12,25 @@ import updateTopicService from "../services/application/updateTopic.service.js";
 import updateTopicStatusService from "../services/application/updateTopicStatus.service.js";
 import deleteTopicService from "../services/application/deleteTopic.service.js";
 
+// export const createTopic = asyncHandler(async (req, res) => {
+//   const topic = await createTopicService(
+//     req.body,
+//     req.user.id
+//   );
+
+//   return res.status(201).json(
+//     new ApiResponse({
+//       message: Messages.TOPIC_CREATED,
+//       data: topicPresenter(topic),
+//     })
+//   );
+// });
 export const createTopic = asyncHandler(async (req, res) => {
   const topic = await createTopicService(
-    req.body,
+    {
+      ...req.body,
+      section: req.params.sectionId,
+    },
     req.user.id
   );
 
@@ -43,6 +59,22 @@ export const listTopics = asyncHandler(async (req, res) => {
     })
   );
 });
+// export const listTopics = asyncHandler(async (req, res) => {
+//   const result = await listTopicsService({
+//     ...req.query,
+//     section: req.params.sectionId,
+//   });
+
+//   return res.json(
+//     new ApiResponse({
+//       message: Messages.SUCCESS,
+//       data: {
+//         ...result,
+//         items: result.items.map(topicPresenter),
+//       },
+//     })
+//   );
+// });
 
 export const getTopicBySlug = asyncHandler(async (req, res) => {
   const topic = await getTopicBySlugService(

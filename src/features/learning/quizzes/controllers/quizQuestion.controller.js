@@ -1,7 +1,7 @@
 import asyncHandler from "../../../../middleware/asyncHandler.middleware.js";
 
 import ApiResponse from "../../../../shared/ApiResponse.js";
-import Messages from "../../../../shared/constants/messages.js";
+import {Messages} from "../../../../shared/constants/messages.js";
 
 import questionPresenter from "../presenters/quizQuestion.presenter.js";
 

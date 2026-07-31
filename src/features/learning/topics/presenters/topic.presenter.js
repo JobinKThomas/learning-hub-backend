@@ -4,7 +4,7 @@ const topicPresenter = (topic) => {
   }
 
   return {
-    id: topic.id,
+    id: topic._id?.toString() || topic.id,
 
     title: topic.title,
 

@@ -12,7 +12,7 @@ const createQuizService = async (
 
   const slug = await generateUniqueSlug({
     repository: quizRepository,
-    title: payload.title,
+    value: payload.title,
   });
 
   const quiz = await quizRepository.createQuiz({

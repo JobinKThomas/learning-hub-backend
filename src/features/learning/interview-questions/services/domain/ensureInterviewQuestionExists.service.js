@@ -1,5 +1,5 @@
 import ApiError from "../../../../../shared/ApiError.js";
-import Messages from "../../../../../shared/constants/messages.js"
+import {Messages} from "../../../../../shared/constants/messages.js"
 
 import * as interviewQuestionRepository from "../../repositories/interviewQuestion.repository.js";
 

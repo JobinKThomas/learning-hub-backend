@@ -25,7 +25,7 @@ const listModulesService = async ({
       ...filters,
       learningPath: learningPathId,
     });
-
+console.log(query);
   const sort =
     buildSort(
       filters.sort,
@@ -46,10 +46,13 @@ const listModulesService = async ({
       limit,
     });
 
-  const total =
-    await moduleRepository.countModules(
-      query
-    );
+  // const total =
+  //   await moduleRepository.countModules(
+  //     query
+  //   );
+  const total = await moduleRepository.countModules({
+  query,
+});
 
   return {
     items,

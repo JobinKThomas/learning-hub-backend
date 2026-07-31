@@ -33,7 +33,7 @@ export const findPlaygroundBySlug = (
     ...filters,
   }).lean();
 };
-
+export const findBySlug = findPlaygroundBySlug;
 /**
  * Find Playgrounds
  */

@@ -18,6 +18,19 @@ const createNoteService = async (
     payload.topic
   );
 
+  // const slug =
+  //   await generateUniqueNoteSlug({
+  //     repository: noteRepository,
+  //     title: payload.title,
+  //   });
+
+  // const content =
+  //   processMarkdown({
+  //       title: payload.title,
+  //       markdown: payload.markdown,
+  //       type: payload.type,
+  //   });
+
   const slug =
     await generateUniqueNoteSlug({
       repository: noteRepository,
@@ -25,11 +38,9 @@ const createNoteService = async (
     });
 
   const content =
-    processMarkdown({
-        title: payload.title,
-        markdown: payload.markdown,
-        type: payload.type,
-    });
+    processMarkdown(
+      payload.markdown
+    );
 
   const note =
     await noteRepository.createNote({

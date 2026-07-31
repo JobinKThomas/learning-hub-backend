@@ -7,11 +7,11 @@ import { Messages } from "../../../../../shared/constants/messages.js";
 
 import topicPresenter from "../../presenters/public/topic.presenter.js";
 
-import notePresenter from "../../../notes/presenters/public/note.presenter.js";
-import resourcePresenter from "../../../resources/presenters/public/resource.presenter.js";
-import playgroundPresenter from "../../../playground/presenters/public/playground.presenter.js";
-import quizPresenter from "../../../quizzes/presenters/public/quiz.presenter.js";
-import interviewQuestionPresenter from "../../../interview-questions/presenters/public/interviewQuestion.presenter.js";
+import notePresenter from "../../../notes/presenters/public/noteDetail.presenter.js";
+import resourcePresenter from "../../../resources/presenters/public/resourceDetail.presenter.js";
+import playgroundPresenter from "../../../playground/presenters/public/playgroundDetail.presenter.js";
+import quizPresenter from "../../../quizzes/presenters/public/quizDetail.presenter.js";
+import interviewQuestionPresenter from "../../../interview-questions/presenters/public/interviewQuestionDetail.presenter.js";
 
 import * as topicRepository from "../../repositories/topic.repository.js";
 import * as noteRepository from "../../../notes/repositories/note.repository.js";

@@ -1,7 +1,7 @@
 import asyncHandler from "../../../../middleware/asyncHandler.middleware.js";
 
 import ApiResponse from "../../../../shared/ApiResponse.js";
-import Messages from "../../../../shared/constants/messages.js";
+import {Messages} from "../../../../shared/constants/messages.js";
 
 import createNoteService from "../services/application/createNote.service.js";
 import listNotesService from "../services/application/listNotes.service.js";
@@ -49,20 +49,34 @@ export const listNotes = asyncHandler(
 /**
  * Get Note by Slug
  */
-export const getNoteBySlug =
-  asyncHandler(async (req, res) => {
-    const note =
-      await getNoteBySlugService(
-        req.params.slug
-      );
+// export const getNoteBySlug =
+//   asyncHandler(async (req, res) => {
+//     const note =
+//       await getNoteBySlugService(
+//         req.params.slug
+//       );
 
-    return successResponse(
-      res,
-      Messages.NOTE_CREATED,
-      note,
-      201
+//     return successResponse(
+//       res,
+//       Messages.NOTE_CREATED,
+//       note,
+//       201
+//     );
+//   });
+export const getNoteBySlug = asyncHandler(
+  async (req, res) => {
+    const note = await getNoteBySlugService(
+      req.params.slug
     );
-  });
+
+    return res.status(200).json(
+      new ApiResponse({
+        message: Messages.SUCCESS,
+        data: note,
+      })
+    );
+  }
+);
 
 /**
  * Update Note

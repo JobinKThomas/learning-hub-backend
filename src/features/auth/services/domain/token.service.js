@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
-import env from "../../../config/env.js";
+import env from "../../../../config/env.js";
 
 /**
  * Generate Access Token
@@ -50,7 +50,7 @@ export const verifyRefreshToken = (token) => {
 /**
  * Hash Refresh Token
  */
-export const hashToken = (token) => {
+export const hashRefreshToken = (token) => {
   return crypto
     .createHash("sha256")
     .update(token)

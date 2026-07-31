@@ -50,23 +50,37 @@ const updateNoteService = async ({
       });
   }
 
+  // /**
+  //  * Markdown Changed
+  //  */
+  // if (
+  //   payload.markdown &&
+  //   payload.markdown !== note.markdown
+  // ) {
+  //   Object.assign(
+  //     updatePayload,
+  //     processMarkdown({
+  //       title: payload.title ?? note.title,
+  //       markdown: payload.markdown,
+  //       type: payload.type ?? note.type,
+  //     })
+  //   );
+  // }
+
   /**
-   * Markdown Changed
-   */
+ * Markdown Changed
+ */
   if (
-    payload.markdown &&
+    payload.markdown !== undefined &&
     payload.markdown !== note.markdown
   ) {
     Object.assign(
       updatePayload,
-      processMarkdown({
-        title: payload.title ?? note.title,
-        markdown: payload.markdown,
-        type: payload.type ?? note.type,
-      })
+      processMarkdown(payload.markdown)
     );
   }
 
+  
   const updatedNote =
     await noteRepository.updateNote(
       id,

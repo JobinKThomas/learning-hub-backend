@@ -1,6 +1,6 @@
 import ApiError from "../shared/ApiError.js";
 import * as authRepository from "../features/auth/repositories/auth.repository.js";
-import { verifyAccessToken } from "../features/auth/services/token.service.js";
+import { verifyAccessToken } from "../features/auth/services/domain/token.service.js";
 
 const authMiddleware = async (req, res, next) => {
   try {

@@ -28,7 +28,7 @@ const notePresenter = (note) => {
   } = note;
 
   return {
-    id,
+    id: note.id ?? note._id?.toString(),
     topic,
     title,
     slug,

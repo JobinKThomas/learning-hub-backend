@@ -22,12 +22,10 @@ const createResourceService = async (
     );
   }
 
-  const slug =
-    await generateUniqueSlug({
-      repository:
-        resourceRepository,
-      title: payload.title,
-    });
+  const slug = await generateUniqueSlug({
+    repository: resourceRepository,
+    value: payload.title,
+  });
 
   return resourceRepository.createResource({
     ...payload,
