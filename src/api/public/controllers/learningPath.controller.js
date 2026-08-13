@@ -3,9 +3,9 @@ import asyncHandler from "../../../middleware/asyncHandler.middleware.js";
 import ApiResponse from "../../../shared/ApiResponse.js";
 import {Messages} from "../../../shared/constants/messages.js";
 
-import getLearningPathsService from "../../../features/learning/learning-paths/services/public/getLearningPathBySlug.service.js";
-import getLearningPathBySlugService from "../../../features/learning/learning-paths/services/public/getLearningPaths.service.js";
-
+import getLearningPathsService from "../../../features/learning/learning-paths/services/public/getLearningPaths.service.js";
+import getLearningPathBySlugService from "../../../features/learning/learning-paths/services/public/getLearningPathBySlug.service.js";
+import getLearningPathModulesService from "../../../features/learning/learning-paths/services/public/getModulePath.service.js";
 /**
  * Get Learning Paths
  */
@@ -39,6 +39,21 @@ export const getLearningPathBySlug =
         message:
           Messages.LEARNING_PATH_FETCHED,
         data: learningPath,
+      })
+    );
+  });
+
+export const getLearningPathModules =
+  asyncHandler(async (req, res) => {
+    const modules =
+      await getLearningPathModulesService(
+        req.params.slug
+      );
+
+    return res.status(200).json(
+      new ApiResponse({
+        message: Messages.MODULES_FETCHED,
+        data: modules,
       })
     );
   });

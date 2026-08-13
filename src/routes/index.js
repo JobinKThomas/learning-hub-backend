@@ -14,7 +14,7 @@ import playgroundsRoutes from "../features/learning/playground/routes/playground
 import quizzessRoutes from "../features/learning/quizzes/routes/quiz.routes.js";
 import quizQuestionsRoutes from "../features/learning/quizzes/routes/quizQuestion.routes.js";
 import quizAttempts from "../features/learning/quiz-attempts/routes/quiz.routes.js";
-
+import publicRoutes from "../api/public/index.js";
 
 const router = Router();
 
@@ -32,6 +32,7 @@ router.use("/playgrounds", playgroundsRoutes);
 router.use("/quizzes", quizzessRoutes);
 router.use("/quiz-questions", quizQuestionsRoutes);
 router.use("/quiz", quizAttempts);
+router.use("/public", publicRoutes);
 
 
 export default router;

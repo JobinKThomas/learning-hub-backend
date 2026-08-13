@@ -22,4 +22,9 @@ router.get(
   learningPathController.getLearningPathBySlug
 );
 
+router.get(
+  "/:slug/modules",
+  learningPathController.getLearningPathModules
+);
+
 export default router;
