@@ -77,3 +77,15 @@ export const updateResource = (
     }
   );
 };
+
+/**
+ * Find One Resource by Topic
+ */
+export const findOneByTopic = (
+  topicId
+) => {
+  return Resource.findOne({
+    topic: topicId,
+    deletedAt: null,
+  }).lean();
+};

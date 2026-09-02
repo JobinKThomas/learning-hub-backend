@@ -182,3 +182,15 @@ export const existsBySlug = (
 
   return Note.exists(query);
 };
+
+/**
+ * Find One Note by Topic
+ */
+export const findOneByTopic = (
+  topicId
+) => {
+  return Note.findOne({
+    topic: topicId,
+    deletedAt: null,
+  }).lean();
+};

@@ -79,3 +79,15 @@ export const updatePlayground = (
     }
   );
 };
+
+/**
+ * Find Playground by Topic
+ */
+export const findOneByTopic = (
+  topicId
+) => {
+  return Playground.findOne({
+    topic: topicId,
+    deletedAt: null,
+  }).lean();
+};

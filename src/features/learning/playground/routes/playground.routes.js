@@ -49,6 +49,26 @@ router.get(
 );
 
 /**
+ * Complete Playground
+ */
+export const completePlayground = asyncHandler(
+  async (req, res) => {
+    const progress =
+      await completePlaygroundService({
+        playgroundId: req.params.id,
+        userId: req.user.id,
+      });
+
+    return res.status(200).json(
+      new ApiResponse({
+        message: Messages.SUCCESS,
+        data: progressPresenter(progress),
+      })
+    );
+  }
+);
+
+/**
  * Update Playground
  */
 router.patch(

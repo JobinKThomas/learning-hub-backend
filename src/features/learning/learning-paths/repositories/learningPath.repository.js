@@ -226,3 +226,16 @@ export const updateOrder = (
     }
   );
 };
+
+export const findPublicLearningPaths = () => {
+  return LearningPath.find({
+    deletedAt: null,
+    status: "PUBLISHED",
+    visibility: "PUBLIC",
+  })
+    .sort({
+      order: 1,
+      title: 1,
+    })
+    .lean();
+};

@@ -49,6 +49,15 @@ router.get(
 );
 
 /**
+ * Complete Resource
+ */
+router.post(
+  "/:id/complete",
+  authMiddleware,
+  resourceController.completeResource
+);
+
+/**
  * Update Resource
  */
 router.patch(

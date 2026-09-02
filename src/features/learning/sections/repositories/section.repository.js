@@ -287,3 +287,33 @@ export const findSectionsByModule = (
     })
     .lean();
 };
+
+export const findSectionTreeIds = async (
+  sectionId
+) => {
+  const sections = await Section.find({
+    deletedAt: null,
+  })
+    .select("_id parentSection")
+    .lean();
+
+  const sectionIds = [sectionId];
+  const queue = [sectionId];
+
+  while (queue.length) {
+    const parentId = queue.shift();
+
+    const children = sections.filter(
+      (section) =>
+        section.parentSection?.toString() ===
+        parentId.toString()
+    );
+
+    for (const child of children) {
+      sectionIds.push(child._id);
+      queue.push(child._id);
+    }
+  }
+
+  return sectionIds;
+};

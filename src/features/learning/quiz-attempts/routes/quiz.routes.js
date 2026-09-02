@@ -20,7 +20,7 @@ router.get(
  */
 router.post(
   "/:slug/submit",
-  submitQuizValidator,
+  7,
   validate,
   quizController.submitQuiz
 );

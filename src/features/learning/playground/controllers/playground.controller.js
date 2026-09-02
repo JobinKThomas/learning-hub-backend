@@ -4,6 +4,8 @@ import ApiResponse from "../../../../shared/ApiResponse.js";
 import {Messages} from "../../../../shared/constants/messages.js";
 
 import playgroundPresenter from "../presenters/playground.presenter.js";
+import progressPresenter from "../../progress/presenters/progress.presenter.js";
+
 
 import createPlaygroundService from "../services/application/createPlayground.service.js";
 import listPlaygroundsService from "../services/application/listPlaygrounds.service.js";
@@ -11,6 +13,7 @@ import getPlaygroundBySlugService from "../services/application/getPlaygroundByS
 import updatePlaygroundService from "../services/application/updatePlayground.service.js";
 import updatePlaygroundStatusService from "../services/application/updatePlaygroundStatus.service.js";
 import deletePlaygroundService from "../services/application/deletePlayground.service.js";
+import completePlaygroundService from "../services/application/completePlayground.service.js";
 
 /**
  * Create Playground
@@ -108,3 +111,23 @@ export const deletePlayground = asyncHandler(async (req, res) => {
     })
   );
 });
+
+/**
+ * Complete Playground
+ */
+export const completePlayground = asyncHandler(
+  async (req, res) => {
+    const progress =
+      await completePlaygroundService({
+        playgroundId: req.params.id,
+        userId: req.user.id,
+      });
+
+    return res.status(200).json(
+      new ApiResponse({
+        message: Messages.SUCCESS,
+        data: progressPresenter(progress),
+      })
+    );
+  }
+);

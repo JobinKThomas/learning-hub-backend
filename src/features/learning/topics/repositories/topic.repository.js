@@ -151,3 +151,88 @@ export const updateOrder = (
     }
   );
 };
+/**
+ * Find Topics by Module
+ */
+export const findTopicsByModule = (
+  moduleId
+) => {
+  return Topic.find({
+    module: moduleId,
+    deletedAt: null,
+  })
+    .sort({
+      order: 1,
+      createdAt: 1,
+    })
+    .lean();
+};
+
+/**
+ * Count Topics by Module
+ */
+export const countTopicsByModule = (
+  moduleId
+) => {
+  return Topic.countDocuments({
+    module: moduleId,
+    deletedAt: null,
+  });
+};
+/**
+ * Find Topics by Section
+ */
+export const findTopicsBySection = (
+  sectionId
+) => {
+  return Topic.find({
+    section: sectionId,
+    deletedAt: null,
+  })
+    .sort({
+      order: 1,
+      createdAt: 1,
+    })
+    .lean();
+};
+/**
+ * Count Topics by Section
+ */
+export const countTopicsBySection = (
+  sectionId
+) => {
+  return Topic.countDocuments({
+    section: sectionId,
+    deletedAt: null,
+  });
+};
+
+/**
+ * Count Topics by Module
+ */
+export const countTopicsByModule = (
+  moduleId
+) => {
+  return Topic.countDocuments({
+    module: moduleId,
+    deletedAt: null,
+  });
+};
+
+/**
+ * Count Topics by Learning Path
+ */
+export const countTopicsByLearningPath = (
+  learningPathId
+) => {
+  return Topic.countDocuments({
+    learningPath: learningPathId,
+    deletedAt: null,
+  });
+};
+
+export const countAllTopics = () => {
+  return Topic.countDocuments({
+    deletedAt: null,
+  });
+};

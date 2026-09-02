@@ -4,6 +4,8 @@ import ApiResponse from "../../../../shared/ApiResponse.js";
 import {Messages} from "../../../../shared/constants/messages.js";
 
 import resourcePresenter from "../presenters/resource.presenter.js";
+import progressPresenter from "../../progress/presenters/progress.presenter.js";
+
 
 import createResourceService from "../services/application/createResource.service.js";
 import listResourcesService from "../services/application/listResources.service.js";
@@ -11,6 +13,7 @@ import getResourceBySlugService from "../services/application/getResourceBySlug.
 import updateResourceService from "../services/application/updateResource.service.js";
 import updateResourceStatusService from "../services/application/updateResourceStatus.service.js";
 import deleteResourceService from "../services/application/deleteResource.service.js";
+import completeResourceService from "../services/application/completeResource.service.js";
 
 /**
  * Create Resource
@@ -121,6 +124,26 @@ export const deleteResource = asyncHandler(
     return res.status(200).json(
       new ApiResponse({
         message: Messages.RESOURCE_DELETED,
+      })
+    );
+  }
+);
+
+/**
+ * Complete Resource
+ */
+export const completeResource = asyncHandler(
+  async (req, res) => {
+    const progress =
+      await completeResourceService({
+        resourceId: req.params.id,
+        userId: req.user.id,
+      });
+
+    return res.status(200).json(
+      new ApiResponse({
+        message: Messages.SUCCESS,
+        data: progressPresenter(progress),
       })
     );
   }

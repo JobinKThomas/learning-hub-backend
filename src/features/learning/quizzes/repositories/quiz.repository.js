@@ -91,3 +91,14 @@ export const findQuizzesByTopic = (
     order: 1,
   });
 };
+
+/**
+ * Find One Published Quiz by Topic
+ */
+export const findOneByTopic = (topicId) => {
+  return Quiz.findOne({
+    topic: topicId,
+    deletedAt: null,
+    status: ContentStatus.PUBLISHED,
+  }).lean();
+};

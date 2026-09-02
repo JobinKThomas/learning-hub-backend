@@ -36,6 +36,15 @@ router.post(
 );
 
 /**
+ * Complete Note
+ */
+router.post(
+  "/:id/complete",
+  authMiddleware,
+  noteController.completeNote
+);
+
+/**
  * Update Note
  */
 router.patch(
@@ -68,5 +77,7 @@ router.delete(
   authorize(Roles.ADMIN),
   noteController.deleteNote
 );
+
+
 
 export default router;

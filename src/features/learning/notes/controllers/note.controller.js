@@ -10,6 +10,10 @@ import updateNoteService from "../services/application/updateNote.service.js";
 import updateNoteStatusService from "../services/application/updateNoteStatus.service.js";
 import deleteNoteService from "../services/application/deleteNote.service.js";
 
+import completeNoteService from "../services/application/completeNote.service.js";
+
+import progressPresenter from "../../../progress/presenters/progress.presenter.js";
+
 /**
  * Create Note
  */
@@ -133,6 +137,26 @@ export const deleteNote = asyncHandler(
     return res.status(200).json(
       new ApiResponse({
         message: Messages.NOTE_DELETED,
+      })
+    );
+  }
+);
+
+/**
+ * Complete Note
+ */
+export const completeNote = asyncHandler(
+  async (req, res) => {
+    const progress =
+      await completeNoteService({
+        noteId: req.params.id,
+        userId: req.user.id,
+      });
+
+    return res.status(200).json(
+      new ApiResponse({
+        message: Messages.SUCCESS,
+        data: progressPresenter(progress),
       })
     );
   }
